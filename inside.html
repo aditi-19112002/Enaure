@@ -3,235 +3,97 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Trending Products</title>
+  <title>Clone</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="bg-[#f7f7f7]">
+<body class="bg-black text-white">
 
-  <!-- Product Section -->
-  <section class="py-10 px-6">
+  <section class="relative h-screen bg-cover bg-center"
+    style="background-image: url('https://assets.nflxext.com/ffe/siteui/vlv3/7e7d3a3b-1c5d-4c63-9f66-62d249bca7ff/6d7d2c52-b1e4-4c88-a6d7-1f4a8f73d3f5/IN-en-20240311-popsignuptwoweeks-perspective_alpha_website_large.jpg');">
 
-    <!-- Product Grid -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 max-w-7xl mx-auto">
 
-      <!-- Card 1 -->
-      <div class="bg-white rounded-lg shadow-sm overflow-hidden border">
-        
-        <div class="relative">
-          <img src="https://ik.imagekit.io/enaure/home/1.JPG.webp?tr=f-webp,q-80"
-            class="w-full h-[280px] object-cover" alt="product">
+    <div class="absolute inset-0 bg-black/70"></div>
 
-          <span class="absolute top-3 left-3 bg-white text-red-600 text-xs font-bold px-3 py-1 rounded">
-            SALE
-          </span>
+  
+    <div class="relative z-10 flex justify-between items-center px-6 md:px-16 py-6">
+      <h1 class="text-3xl md:text-4xl font-bold text-red-600">
+        NETFLIX
+      </h1>
 
-          <div class="absolute top-3 right-3 bg-white w-10 h-10 rounded-full flex items-center justify-center shadow">
-            ♡
-          </div>
-        </div>
-
-        <div class="p-4 text-center">
-          <h3 class="text-[18px] font-medium text-gray-800 leading-6">
-            Gold Twisted Knot Statement Ring
-          </h3>
-
-          <p class="text-yellow-400 text-sm mt-2">
-            ★★★★★ <span class="text-gray-400">(0)</span>
-          </p>
-
-          <div class="mt-2">
-            <span class="text-[#9b003f] text-2xl font-bold">₹99</span>
-            <span class="text-gray-400 line-through ml-2">₹199</span>
-          </div>
-
-          <p class="text-green-600 font-semibold mt-1">
-            SAVE ₹100
-          </p>
-
-          <button class="w-full mt-4 bg-[#9b003f] text-white py-3 rounded-md font-semibold hover:bg-[#7a0031] transition">
-            VIEW DETAILS
-          </button>
-        </div>
+      <div class="flex gap-4">
+        <button class="border px-4 py-2 rounded text-sm hover:bg-white/20 transition">
+          English
+        </button>
+        <button class="bg-red-600 px-5 py-2 rounded font-semibold hover:bg-red-700 transition">
+          Sign In
+        </button>
       </div>
-
-      <!-- Card 2 -->
-      <div class="bg-white rounded-lg shadow-sm overflow-hidden border">
-        
-        <div class="relative">
-          <img src="https://ik.imagekit.io/enaure/home/2.JPG.webp?tr=f-webp,q-80"
-            class="w-full h-[280px] object-cover" alt="product">
-
-          <span class="absolute top-3 left-3 bg-white text-red-600 text-xs font-bold px-3 py-1 rounded">
-            SALE
-          </span>
-
-          <div class="absolute top-3 right-3 bg-white w-10 h-10 rounded-full flex items-center justify-center shadow">
-            ♡
-          </div>
-        </div>
-
-        <div class="p-4 text-center">
-          <h3 class="text-[18px] font-medium text-gray-800 leading-6">
-            Open Heart Crystal Promise Ring
-          </h3>
-
-          <p class="text-yellow-400 text-sm mt-2">
-            ★★★★★ <span class="text-gray-400">(0)</span>
-          </p>
-
-          <div class="mt-2">
-            <span class="text-[#9b003f] text-2xl font-bold">₹149</span>
-            <span class="text-gray-400 line-through ml-2">₹299</span>
-          </div>
-
-          <p class="text-green-600 font-semibold mt-1">
-            SAVE ₹150
-          </p>
-
-          <button class="w-full mt-4 bg-[#9b003f] text-white py-3 rounded-md font-semibold hover:bg-[#7a0031] transition">
-            VIEW DETAILS
-          </button>
-        </div>
-      </div>
-
-      <!-- Card 3 -->
-      <div class="bg-white rounded-lg shadow-sm overflow-hidden border">
-        
-        <div class="relative">
-          <img src="https://ik.imagekit.io/enaure/home/3.JPG.webp?tr=f-webp,q-80"
-            class="w-full h-[280px] object-cover" alt="product">
-
-          <span class="absolute top-3 left-3 bg-white text-red-600 text-xs font-bold px-3 py-1 rounded">
-            SALE
-          </span>
-
-          <div class="absolute top-3 right-3 bg-white w-10 h-10 rounded-full flex items-center justify-center shadow">
-            ♡
-          </div>
-        </div>
-
-        <div class="p-4 text-center">
-          <h3 class="text-[18px] font-medium text-gray-800 leading-6">
-            Starlight Half-Eternity Ring
-          </h3>
-
-          <p class="text-yellow-400 text-sm mt-2">
-            ★★★★★ <span class="text-gray-400">(0)</span>
-          </p>
-
-          <div class="mt-2">
-            <span class="text-[#9b003f] text-2xl font-bold">₹99</span>
-            <span class="text-gray-400 line-through ml-2">₹299</span>
-          </div>
-
-          <p class="text-green-600 font-semibold mt-1">
-            SAVE ₹200
-          </p>
-
-          <button class="w-full mt-4 bg-[#9b003f] text-white py-3 rounded-md font-semibold hover:bg-[#7a0031] transition">
-            VIEW DETAILS
-          </button>
-        </div>
-      </div>
-
-      <!-- Card 4 -->
-      <div class="bg-white rounded-lg shadow-sm overflow-hidden border">
-        
-        <div class="relative">
-          <img src="https://ik.imagekit.io/enaure/home/4.JPG.webp?tr=f-webp,q-80"
-            class="w-full h-[280px] object-cover" alt="product">
-
-          <span class="absolute top-3 left-3 bg-white text-red-600 text-xs font-bold px-3 py-1 rounded">
-            SALE
-          </span>
-
-          <div class="absolute top-3 right-3 bg-white w-10 h-10 rounded-full flex items-center justify-center shadow">
-            ♡
-          </div>
-        </div>
-
-        <div class="p-4 text-center">
-          <h3 class="text-[18px] font-medium text-gray-800 leading-6">
-            Crystal Butterfly Ring
-          </h3>
-
-          <p class="text-yellow-400 text-sm mt-2">
-            ★★★★★ <span class="text-gray-400">(0)</span>
-          </p>
-
-          <div class="mt-2">
-            <span class="text-[#9b003f] text-2xl font-bold">₹99</span>
-            <span class="text-gray-400 line-through ml-2">₹299</span>
-          </div>
-
-          <p class="text-green-600 font-semibold mt-1">
-            SAVE ₹200
-          </p>
-
-          <button class="w-full mt-4 bg-[#9b003f] text-white py-3 rounded-md font-semibold hover:bg-[#7a0031] transition">
-            VIEW DETAILS
-          </button>
-        </div>
-      </div>
-
-      <!-- Card 5 -->
-      <div class="bg-white rounded-lg shadow-sm overflow-hidden border">
-        
-        <div class="relative">
-          <img src="https://ik.imagekit.io/enaure/home/5.JPG.webp?tr=f-webp,q-80"
-            class="w-full h-[280px] object-cover" alt="product">
-
-          <span class="absolute top-3 left-3 bg-white text-red-600 text-xs font-bold px-3 py-1 rounded">
-            SALE
-          </span>
-
-          <div class="absolute top-3 right-3 bg-white w-10 h-10 rounded-full flex items-center justify-center shadow">
-            ♡
-          </div>
-        </div>
-
-        <div class="p-4 text-center">
-          <h3 class="text-[18px] font-medium text-gray-800 leading-6">
-            Gold Textured Starfish Ring
-          </h3>
-
-          <p class="text-yellow-400 text-sm mt-2">
-            ★★★★★ <span class="text-gray-400">(0)</span>
-          </p>
-
-          <div class="mt-2">
-            <span class="text-[#9b003f] text-2xl font-bold">₹99</span>
-            <span class="text-gray-400 line-through ml-2">₹299</span>
-          </div>
-
-          <p class="text-green-600 font-semibold mt-1">
-            SAVE ₹200
-          </p>
-
-          <button class="w-full mt-4 bg-[#9b003f] text-white py-3 rounded-md font-semibold hover:bg-[#7a0031] transition">
-            VIEW DETAILS
-          </button>
-        </div>
-      </div>
-
     </div>
 
-    <!-- Dots -->
-    <div class="flex justify-center mt-8 gap-2">
-      <span class="w-3 h-3 rounded-full bg-[#9b003f]"></span>
-      <span class="w-3 h-3 rounded-full bg-gray-300"></span>
-    </div>
 
-    <!-- Heading -->
-    <div class="text-center mt-12">
-      <p class="text-sm tracking-[4px] text-pink-500 font-semibold">
-        POPULAR NOW
+    <div class="relative z-10 flex flex-col items-center justify-center text-center h-[80%] px-6">
+      <h2 class="text-4xl md:text-6xl font-bold max-w-4xl leading-tight">
+        Unlimited movies, TV shows and more
+      </h2>
+
+      <p class="text-xl mt-6">
+        Starts at ₹149. Cancel at any time.
       </p>
 
-      <h2 class="text-4xl font-bold text-[#0f1b3d] mt-2">
-        TRENDING PRODUCTS
-      </h2>
+      <p class="text-lg mt-4">
+        Ready to watch? Enter your email to create or restart your membership.
+      </p>
+
+      <div class="flex flex-col md:flex-row gap-4 mt-8 w-full max-w-2xl">
+        <input
+          type="email"
+          placeholder="Email address"
+          class="flex-1 px-5 py-4 rounded bg-black/60 border border-gray-500 text-white focus:outline-none"
+        >
+
+        <button class="bg-red-600 px-8 py-4 rounded text-xl font-semibold hover:bg-red-700 transition">
+          Get Started >
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 px-6 md:px-16 space-y-20">
+
+
+    <div class="grid md:grid-cols-2 gap-10 items-center">
+      <div>
+        <h2 class="text-4xl md:text-5xl font-bold">
+          Enjoy on your TV
+        </h2>
+        <p class="text-xl mt-4 text-gray-300">
+          Watch on smart TVs, PlayStation, Xbox, Chromecast, Apple TV, Blu-ray players and more.
+        </p>
+      </div>
+
+      <img
+        src="https://assets.nflxext.com/ffe/siteui/acquisition/ourStory/fuji/desktop/tv.png"
+        alt="TV"
+        class="w-full"
+      >
+    </div>
+
+    
+    <div class="grid md:grid-cols-2 gap-10 items-center">
+    <img
+  src="https://occ-0-6245-3647.1.nflxso.net/dnm/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABUQuiGL7J98QLQ-I_nR0OFe8yLAQ9mQBVbBQJpnWE48QFvE9_BaZoz3fzrvnIjwA0Wh3JfcVeIFCbP7zZw2pFKyJg0ZzJrTBzyM.webp?r=dff"
+  alt="Mobile"
+  class="w-full max-w-md mx-auto h-auto object-cover rounded-lg"
+>
+      <div>
+        <h2 class="text-4xl md:text-5xl font-bold">
+          Download your shows to watch offline
+        </h2>
+        <p class="text-xl mt-4 text-gray-300">
+          Save your favourites easily and always have something to watch.
+        </p>
+      </div>
     </div>
 
   </section>
