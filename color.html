@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Color Mixing</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 flex flex-col items-center justify-center min-h-screen">
+
+  <h1 class="text-4xl font-bold text-blue-700 mb-10">Color Mixing</h1>
+
+  <div class="flex items-center gap-6">
+
+  
+    <div id="color1"
+      class="w-20 h-20 rounded-full cursor-pointer shadow-lg"
+      style="background:#ef4444"></div>
+
+    <span class="text-3xl font-bold">+</span>
+
+   
+    <div id="color2"
+      class="w-20 h-20 rounded-full cursor-pointer shadow-lg"
+      style="background:#facc15"></div>
+
+    <span class="text-3xl font-bold">=</span>
+
+   
+    <div id="result"
+      class="w-20 h-20 rounded-full shadow-lg transition-all duration-300"
+      style="background:#f97316"></div>
+
+  </div>
+
+
+  <div class="flex gap-4 mt-10">
+
+    <div class="color w-14 h-14 bg-red-500 rounded-full cursor-pointer" data-color="red"></div>
+    <div class="color w-14 h-14 bg-yellow-400 rounded-full cursor-pointer" data-color="yellow"></div>
+    <div class="color w-14 h-14 bg-blue-500 rounded-full cursor-pointer" data-color="blue"></div>
+    <div class="color w-14 h-14 bg-green-500 rounded-full cursor-pointer" data-color="green"></div>
+
+  </div>
+
+<script>
+
+let selected = 1;
+let c1 = "red";
+let c2 = "yellow";
+
+
+const colorMap = {
+  red: "#ef4444",
+  yellow: "#facc15",
+  blue: "#3b82f6",
+  green: "#22c55e",
+  orange: "#f97316",
+  purple: "#a855f7",
+  gray: "#6b7280"
+};
+
+const mix = {
+  "red+yellow": "orange",
+  "yellow+red": "orange",
+
+  "blue+yellow": "green",
+  "yellow+blue": "green",
+
+  "red+blue": "purple",
+  "blue+red": "purple"
+};
+
+
+document.getElementById("color1").onclick = () => selected = 1;
+document.getElementById("color2").onclick = () => selected = 2;
+
+
+document.querySelectorAll(".color").forEach(el => {
+  el.addEventListener("click", () => {
+
+    let color = el.dataset.color;
+
+    if(selected === 1){
+      c1 = color;
+      document.getElementById("color1").style.backgroundColor = colorMap[color];
+    } else {
+      c2 = color;
+      document.getElementById("color2").style.backgroundColor = colorMap[color];
+    }
+
+    let resultColor;
+
+    
+    if(c1 === c2){
+      resultColor = c1;
+    } else {
+      resultColor = mix[`${c1}+${c2}`] || "gray";
+    }
+
+    let resultEl = document.getElementById("result");
+    resultEl.style.backgroundColor = colorMap[resultColor];
+
+  
+    resultEl.classList.add("scale-125");
+    setTimeout(() => {
+      resultEl.classList.remove("scale-125");
+    }, 200);
+
+  });
+});
+
+</script>
+
+</body>
+</html> 
