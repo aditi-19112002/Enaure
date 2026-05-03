@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>WhatsApp</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-200 flex justify-center items-center h-screen">
+
+  <div class="w-full max-w-md h-[600px] bg-white rounded-xl shadow-lg flex flex-col overflow-hidden">
+
+  
+    <div class="bg-green-600 text-white p-4 flex items-center gap-3">
+      <img src="aditi.jpeg" class=" w-8 h-8 rounded-full">
+      <div>
+        <h2 class="font-semibold">Aditi Keshri</h2> 
+        <p class="text-xs text-green-100">Online</p>
+      </div>
+    </div>
+
+   
+    <div id="chatBox" class="flex-1 p-4 overflow-y-auto space-y-3 bg-gray-100">
+
+    
+      <div class="flex justify-start">
+        <div class="bg-white p-2 rounded-lg shadow text-sm">Hello</div>
+      </div>
+
+      <div class="flex justify-end">
+        <div class="bg-green-500 text-white p-2 rounded-lg shadow text-sm">Hi</div>
+      </div>
+
+    </div>
+
+    <div class="p-3 bg-white flex gap-2 border-t">
+      <input id="messageInput" type="text" placeholder="Type a message..."
+        class="flex-1 border rounded-full px-4 py-2 focus:outline-none">
+
+      <button onclick="sendMessage()"
+        class="bg-green-600 text-white px-4 py-2 rounded-full hover:bg-green-700">
+        Send
+      </button>
+    </div>
+
+  </div>
+
+  <script>
+    const chatBox = document.getElementById("chatBox");
+    const input = document.getElementById("messageInput");
+
+    function sendMessage() {
+      const message = input.value.trim();
+      if (message === "") return;
+
+      const userMsg = document.createElement("div");
+      userMsg.className = "flex justify-end";
+      userMsg.innerHTML = `
+        <div class="bg-green-500 text-white p-2 rounded-lg shadow text-sm">
+          ${message}
+        </div>
+      `;
+      chatBox.appendChild(userMsg);
+
+      input.value = "";
+
+      scrollToBottom();
+
+      setTimeout(() => {
+        const botMsg = document.createElement("div");
+        botMsg.className = "flex justify-start";
+        botMsg.innerHTML = `
+          <div class="bg-white p-2 rounded-lg shadow text-sm">
+            I am from bihar
+          </div>
+
+         
+        `;
+        chatBox.appendChild(botMsg);
+        scrollToBottom();
+      }, 1000);
+    }
+
+    function scrollToBottom() {
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    
+    input.addEventListener("keypress", function(e) {
+      if (e.key === "Enter") {
+        sendMessage();
+      }
+    });
+  </script>
+
+</body>
+</html>
