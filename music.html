@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Instagram</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-900 flex justify-center items-center h-screen p-10 ">
+
+  
+  <div class="w-[375px] h-[700px] bg-black text-white rounded-2xl overflow-hidden shadow-2xl relative">
+
+
+    <div class="absolute top-0 w-full bg-black border-b border-gray-800 flex justify-between items-center px-4 py-3 z-50">
+      <h1 class="text-lg font-bold">Instagram</h1>
+      <div class="flex gap-4 text-lg">
+        <span>❤️</span>
+        <span>💬</span>
+      </div>
+    </div>
+
+    <div class="mt-14 px-3 py-2 flex gap-3 overflow-x-auto border-b border-gray-800">
+
+      <div class="flex flex-col items-center min-w-[60px]">
+        <img src="aditi.jpeg" class="w-14 h-14 rounded-full border-2 border-pink-500 p-1">
+        <p class="text-[10px] mt-1">you</p>
+      </div>
+
+      <div class="flex flex-col items-center min-w-[60px]">
+        <img src="OIP (11).jpg" class="w-14 h-14 rounded-full border-2 border-pink-500 p-1">
+        <p class="text-[10px] mt-1">Aditi</p>
+      </div>
+
+      <div class="flex flex-col items-center min-w-[60px]">
+        <img src="aditi.jpeg" class="w-14 h-14 rounded-full border-2 border-pink-500 p-1">
+        <p class="text-[10px] mt-1">CodeWithAditi</p>
+      </div>
+
+    </div>
+
+   
+    <div id="reelsContainer" class="h-full overflow-y-scroll snap-y snap-mandatory">
+
+      <div class="h-full snap-start relative">
+        <video class="video w-full h-full object-cover"
+          src="aditi.mp4"
+          loop muted></video>
+
+        <div class="absolute bottom-20 left-3">
+          <h2 class="font-bold text-sm">CodeWithAditi</h2>
+          <p class="text-xs">Amazing reel 🔥</p>
+        </div>
+
+       
+        <div class="absolute right-3 bottom-24 flex flex-col gap-4 text-center">
+          <button class="likeBtn text-xl">🤍</button>
+          <span>💬</span>
+          <span>📤</span>
+        </div>
+      </div>
+
+      <div class="h-full snap-start relative">
+        <video class="video w-full h-full object-cover"
+          src="aditi2.mp4"
+          loop muted></video>
+
+        <div class="absolute bottom-20 left-3">
+          <h2 class="font-bold text-sm">CodeWithAditi</h2>
+          <p class="text-xs">Scroll 😎</p>
+        </div>
+
+        <div class="absolute right-3 bottom-24 flex flex-col gap-4 text-center">
+          <button class="likeBtn text-xl">🤍</button>
+          <span>💬</span>
+          <span>📤</span>
+        </div>
+      </div>
+
+    </div>
+
+    
+    <div class="absolute bottom-0 w-full bg-black border-t border-gray-800 flex justify-around py-2 text-lg">
+      <span>🏠</span>
+      <span>🔍</span>
+      <span>➕</span>
+      <span>🎬</span>
+      <span>👤</span>
+    </div>
+
+  </div>
+
+  <script>
+    const videos = document.querySelectorAll(".video");
+    const likeBtns = document.querySelectorAll(".likeBtn");
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const video = entry.target;
+
+        if (entry.isIntersecting) {
+          video.play();
+        } else {
+          video.pause();
+        }
+      });
+    }, { threshold: 0.7 });
+
+    videos.forEach(video => observer.observe(video));
+
+   
+    likeBtns.forEach(btn => {
+      btn.addEventListener("click", () => {
+        btn.innerText = btn.innerText === "🤍" ? "❤️" : "🤍";
+      });
+    });
+
+   
+    videos.forEach(video => {
+      video.addEventListener("click", () => {
+        video.paused ? video.play() : video.pause();
+      });
+    });
+  </script>
+
+</body>
+</html>
