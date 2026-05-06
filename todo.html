@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CRUD Todo App</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+
+  <div class="bg-white p-6 rounded-xl shadow-lg w-full max-w-md">
+    
+    <h1 class="text-2xl font-bold text-center mb-4">Crud Tudo</h1>
+
+  
+    <div class="flex gap-2">
+      <input id="taskInput" type="text" placeholder="Enter task..."
+        class="flex-1 px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
+      <button onclick="addOrUpdateTask()"
+        class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
+        Save
+      </button>
+    </div>
+
+   
+    <ul id="taskList" class="mt-4 space-y-2"></ul>
+
+  </div>
+
+<script>
+let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+let editIndex = null;
+
+
+function renderTasks() {
+  const list = document.getElementById("taskList");
+  list.innerHTML = "";
+
+  tasks.forEach((task, index) => {
+    list.innerHTML += `
+      <li class="flex justify-between items-center bg-gray-50 px-3 py-2 rounded-lg">
+        
+        <span onclick="toggleTask(${index})"
+          class="cursor-pointer ${task.completed ? 'line-through text-gray-400' : ''}">
+          ${task.text}
+        </span>
+
+        <div class="flex gap-2">
+          <button onclick="editTask(${index})"
+            class="text-blue-500 hover:text-blue-700">Edit</button>
+
+          <button onclick="deleteTask(${index})"
+            class="text-red-500 hover:text-red-700">Delete</button>
+        </div>
+      </li>
+    `;
+  });
+
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+
+function addOrUpdateTask() {
+  const input = document.getElementById("taskInput");
+  const value = input.value.trim();
+
+  if (value === "") return;
+
+  if (editIndex === null) {
+    
+    tasks.push({ text: value, completed: false });
+  } else {
+   
+    tasks[editIndex].text = value;
+    editIndex = null;
+  }
+
+  input.value = "";
+  renderTasks();
+}
+
+
+function deleteTask(index) {
+  tasks.splice(index, 1);
+  renderTasks();
+}
+
+function toggleTask(index) {
+  tasks[index].completed = !tasks[index].completed;
+  renderTasks();
+}
+
+
+function editTask(index) {
+  document.getElementById("taskInput").value = tasks[index].text;
+  editIndex = index;
+}
+
+
+renderTasks();
+</script>
+
+</body>
+</html>
