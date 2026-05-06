@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Calendar Event System</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-900 flex items-center justify-center min-h-screen text-white">
+
+<div class="bg-gray-800 p-6 rounded-xl shadow-lg w-[350px]">
+
+  <div class="flex justify-between items-center mb-4">
+    <button onclick="prevMonth()">⬅️</button>
+    <h2 id="monthYear" class="font-bold"></h2>
+    <button onclick="nextMonth()">➡️</button>
+  </div>
+
+ 
+  <div class="grid grid-cols-7 text-center text-sm mb-2 text-gray-400">
+    <div>Sun</div><div>Mon</div><div>Tue</div>
+    <div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
+  </div>
+
+
+  <div id="calendar" class="grid grid-cols-7 gap-2 text-center"></div>
+</div>
+
+
+<div id="modal"
+  class="fixed inset-0 bg-black bg-opacity-70 hidden items-center justify-center">
+
+  <div class="bg-white text-black p-5 rounded-lg w-[300px]">
+    <h3 class="font-bold mb-2">Add Event</h3>
+    <input id="eventInput" type="text"
+      class="w-full border p-2 mb-3 rounded"
+      placeholder="Event title">
+
+    <div class="flex justify-between">
+      <button onclick="saveEvent()" class="bg-blue-500 text-white px-3 py-1 rounded">Save</button>
+      <button onclick="closeModal()" class="bg-gray-400 px-3 py-1 rounded">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const calendar = document.getElementById("calendar");
+  const monthYear = document.getElementById("monthYear");
+
+  let date = new Date();
+  let selectedDate = null;
+
+  let events = JSON.parse(localStorage.getItem("events")) || {};
+
+  function formatDateKey(year, month, day) {
+    return `${year}-${month + 1}-${day}`;
+  }
+
+  function renderCalendar() {
+    calendar.innerHTML = "";
+
+    const year = date.getFullYear();
+    const month = date.getMonth();
+
+    const firstDay = new Date(year, month, 1).getDay();
+    const lastDate = new Date(year, month + 1, 0).getDate();
+
+    monthYear.innerText = date.toLocaleString("default", {
+      month: "long",
+      year: "numeric"
+    });
+
+    for (let i = 0; i < firstDay; i++) {
+      calendar.innerHTML += `<div></div>`;
+    }
+
+    for (let i = 1; i <= lastDate; i++) {
+      const key = formatDateKey(year, month, i);
+      const hasEvent = events[key];
+
+      calendar.innerHTML += `
+        <div onclick="openModal(${i})"
+          class="p-2 rounded cursor-pointer relative
+          ${hasEvent ? 'bg-green-500' : 'hover:bg-gray-700'}">
+          ${i}
+          ${hasEvent ? '<span class="absolute bottom-1 left-1 text-xs">•</span>' : ''}
+        </div>
+      `;
+    }
+  }
+
+  function openModal(day) {
+    selectedDate = day;
+    document.getElementById("modal").classList.remove("hidden");
+    document.getElementById("modal").classList.add("flex");
+  }
+
+  function closeModal() {
+    document.getElementById("modal").classList.add("hidden");
+    document.getElementById("modal").classList.remove("flex");
+  }
+
+  function saveEvent() {
+    const input = document.getElementById("eventInput");
+    const text = input.value.trim();
+
+    if (!text) return;
+
+    const year = date.getFullYear();
+    const month = date.getMonth();
+
+    const key = formatDateKey(year, month, selectedDate);
+
+    events[key] = text;
+
+    localStorage.setItem("events", JSON.stringify(events));
+
+    input.value = "";
+    closeModal();
+    renderCalendar();
+  }
+
+  function prevMonth() {
+    date.setMonth(date.getMonth() - 1);
+    renderCalendar();
+  }
+
+  function nextMonth() {
+    date.setMonth(date.getMonth() + 1);
+    renderCalendar();
+  }
+
+  renderCalendar();
+</script>
+
+</body>
+</html>
