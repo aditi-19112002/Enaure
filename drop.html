@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dropdown</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-900 flex items-center justify-center h-screen text-white">
+
+
+<div class="relative">
+
+
+  <img id="avatar"
+    src="aditi.jpeg"
+    class="w-32 h-32 rounded-full cursor-pointer border-2 border-white">
+
+  
+  <div id="dropdown"
+    class="absolute right-0 mt-3 w-48 bg-white text-black rounded-lg shadow-lg hidden">
+
+    <div class="p-3 border-b">
+      <p class="font-bold">Aditi Keshri</p>
+      <p class="text-sm text-gray-500">aditi@email.com</p>
+    </div>
+
+    <a href="#" class="block px-4 py-2 hover:bg-gray-100"> Profile</a>
+    <a href="#" class="block px-4 py-2 hover:bg-gray-100">Settings</a>
+    <a href="#" class="block px-4 py-2 hover:bg-red-100 text-red-500">Logout</a>
+
+  </div>
+</div>
+
+<script>
+  const avatar = document.getElementById("avatar");
+  const dropdown = document.getElementById("dropdown");
+
+ 
+  avatar.addEventListener("click", (e) => {
+    e.stopPropagation();
+    dropdown.classList.toggle("hidden");
+  });
+
+  
+  document.addEventListener("click", (e) => {
+    if (!dropdown.contains(e.target) && !avatar.contains(e.target)) {
+      dropdown.classList.add("hidden");
+    }
+  });
+</script>
+
+</body>
+</html>
