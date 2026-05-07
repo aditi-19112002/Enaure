@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>YouTube</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    body{
+      font-family: Arial, sans-serif;
+    }
+  </style>
+</head>
+
+<body class="bg-[#0f0f0f] min-h-screen flex items-center justify-center p-4">
+
+ 
+  <div class="w-full max-w-5xl bg-[#1a1a1a] rounded-3xl overflow-hidden shadow-2xl grid md:grid-cols-2">
+
+    
+    <div class="hidden md:flex flex-col justify-center items-center bg-gradient-to-br from-red-600 to-red-800 p-10 relative overflow-hidden">
+
+      <div class="absolute w-72 h-72 bg-white/10 rounded-full -top-10 -left-10"></div>
+      <div class="absolute w-52 h-52 bg-black/20 rounded-full bottom-0 right-0"></div>
+
+      <img
+        src="https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg"
+        class="w-52 mb-8 z-10"
+      >
+
+      <h1 class="text-4xl font-bold text-white text-center z-10">
+        Create Your Channel
+      </h1>
+
+      <p class="text-red-100 text-center mt-4 z-10">
+        Share your videos with the world.
+      </p>
+
+    </div>
+
+  
+    <div class="p-8 md:p-12">
+
+      
+      <div class="md:hidden flex justify-center mb-8">
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg"
+          class="w-40"
+        >
+      </div>
+
+      <h2 class="text-3xl font-bold text-white mb-2">
+        Sign Up
+      </h2>
+
+      <p class="text-gray-400 mb-8">
+        Continue to YouTube Clone
+      </p>
+
+      <form class="space-y-5">
+
+      
+        <div>
+          <label class="text-gray-300 text-sm block mb-2">
+            Full Name
+          </label>
+
+          <input
+            type="text"
+            placeholder="Enter your full name"
+            class="w-full bg-[#2a2a2a] border border-gray-700 focus:border-red-500 text-white rounded-xl px-4 py-3 outline-none transition"
+          >
+        </div>
+
+      
+        <div>
+          <label class="text-gray-300 text-sm block mb-2">
+            Email
+          </label>
+
+          <input
+            type="email"
+            placeholder="Enter your email"
+            class="w-full bg-[#2a2a2a] border border-gray-700 focus:border-red-500 text-white rounded-xl px-4 py-3 outline-none transition"
+          >
+        </div>
+
+        
+        <div>
+          <label class="text-gray-300 text-sm block mb-2">
+            Password
+          </label>
+
+          <div class="relative">
+
+            <input
+              type="password"
+              id="password"
+              placeholder="Create password"
+              class="w-full bg-[#2a2a2a] border border-gray-700 focus:border-red-500 text-white rounded-xl px-4 py-3 outline-none transition"
+            >
+
+            <button
+              type="button"
+              onclick="togglePassword()"
+              class="absolute right-4 top-3 text-gray-400 hover:text-white"
+            >
+              👁
+            </button>
+
+          </div>
+        </div>
+
+      
+        <div class="flex items-center gap-3">
+
+          <input
+            type="checkbox"
+            class="w-4 h-4 accent-red-600"
+          >
+
+          <p class="text-gray-400 text-sm">
+            I agree to Terms & Conditions
+          </p>
+
+        </div>
+
+      
+        <button
+          class="w-full bg-red-600 hover:bg-red-700 transition duration-300 text-white font-semibold py-3 rounded-xl shadow-lg hover:scale-[1.02]"
+        >
+          Create Account
+        </button>
+
+      </form>
+
+      
+      <div class="flex items-center gap-4 my-8">
+        <div class="flex-1 h-[1px] bg-gray-700"></div>
+        <span class="text-gray-500 text-sm">OR</span>
+        <div class="flex-1 h-[1px] bg-gray-700"></div>
+      </div>
+
+    
+      <div class="grid grid-cols-2 gap-4">
+
+        <button class="bg-[#2a2a2a] hover:bg-[#333] border border-gray-700 text-white py-3 rounded-xl transition">
+          Google
+        </button>
+
+        <button class="bg-[#2a2a2a] hover:bg-[#333] border border-gray-700 text-white py-3 rounded-xl transition">
+          GitHub
+        </button>
+
+      </div>
+
+      
+      <p class="text-center text-gray-500 mt-8">
+        Already have an account?
+
+        <a href="#" class="text-red-500 hover:underline">
+          Login
+        </a>
+      </p>
+
+    </div>
+
+  </div>
+
+  <script>
+    function togglePassword(){
+
+      const password = document.getElementById("password");
+
+      if(password.type === "password"){
+        password.type = "text";
+      }else{
+        password.type = "password";
+      }
+
+    }
+  </script>
+
+</body>
+</html>
