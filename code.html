@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Draggable Notes App</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    .note {
+      position: absolute;
+      cursor: grab;
+      user-select: none;
+    }
+  </style>
+</head>
+
+<body class="bg-gradient-to-br from-gray-900 via-black to-gray-800 min-h-screen overflow-hidden text-white">
+
+  
+  <div class="flex items-center justify-between px-6 py-4 border-b border-gray-700">
+    <h1 class="text-3xl font-bold"> Notes</h1>
+
+    <button id="addNote"
+      class="bg-yellow-400 hover:bg-yellow-300 text-black font-semibold px-5 py-2 rounded-xl transition">
+      + Add Note
+    </button>
+  </div>
+
+  <div id="notesContainer" class="relative w-full h-[90vh]"></div>
+
+<script>
+  const container = document.getElementById("notesContainer");
+  const addBtn = document.getElementById("addNote");
+
+  let notes = JSON.parse(localStorage.getItem("notes")) || [];
+
+  function saveNotes() {
+    localStorage.setItem("notes", JSON.stringify(notes));
+  }
+
+  function createNote(noteData) {
+
+    const note = document.createElement("div");
+    note.className = `note w-64 min-h-[200px] rounded-2xl shadow-2xl p-4 ${noteData.color}`;
+    note.style.left = noteData.x + "px";
+    note.style.top = noteData.y + "px";
+
+    note.innerHTML = `
+      <div class="flex justify-between items-center mb-3">
+        <select class="colorSelect bg-black/20 text-white rounded px-2 py-1 outline-none">
+          <option value="bg-yellow-300">Yellow</option>
+          <option value="bg-pink-300">Pink</option>
+          <option value="bg-green-300">Green</option>
+          <option value="bg-blue-300">Blue</option>
+        </select>
+
+        <button class="deleteBtn text-red-600 text-xl font-bold">
+          ✕
+        </button>
+      </div>
+
+      <textarea
+        class="w-full h-36 bg-transparent outline-none resize-none text-black font-semibold placeholder:text-gray-700"
+        placeholder="Write something..."
+      >${noteData.text}</textarea>
+    `;
+
+    container.appendChild(note);
+
+    const textarea = note.querySelector("textarea");
+    const deleteBtn = note.querySelector(".deleteBtn");
+    const colorSelect = note.querySelector(".colorSelect");
+
+    colorSelect.value = noteData.color;
+
+
+    textarea.addEventListener("input", () => {
+      noteData.text = textarea.value;
+      saveNotes();
+    });
+
+
+    colorSelect.addEventListener("change", () => {
+      note.className = `note w-64 min-h-[200px] rounded-2xl shadow-2xl p-4 ${colorSelect.value}`;
+      noteData.color = colorSelect.value;
+      saveNotes();
+    });
+
+    deleteBtn.addEventListener("click", () => {
+      notes = notes.filter(n => n.id !== noteData.id);
+      note.remove();
+      saveNotes();
+    });
+
+  
+    let isDragging = false;
+    let offsetX, offsetY;
+
+    note.addEventListener("mousedown", (e) => {
+
+      if (e.target.tagName === "TEXTAREA" || e.target.tagName === "SELECT") return;
+
+      isDragging = true;
+
+      offsetX = e.clientX - note.offsetLeft;
+      offsetY = e.clientY - note.offsetTop;
+
+      note.style.cursor = "grabbing";
+    });
+
+    document.addEventListener("mousemove", (e) => {
+      if (!isDragging) return;
+
+      note.style.left = e.clientX - offsetX + "px";
+      note.style.top = e.clientY - offsetY + "px";
+
+      noteData.x = e.clientX - offsetX;
+      noteData.y = e.clientY - offsetY;
+
+      saveNotes();
+    });
+
+    document.addEventListener("mouseup", () => {
+      isDragging = false;
+      note.style.cursor = "grab";
+    });
+  }
+
+  addBtn.addEventListener("click", () => {
+
+    const newNote = {
+      id: Date.now(),
+      text: "",
+      color: "bg-yellow-300",
+      x: 100,
+      y: 100
+    };
+
+    notes.push(newNote);
+
+    saveNotes();
+
+    createNote(newNote);
+  });
+
+  // Load saved notes
+  notes.forEach(note => createNote(note));
+
+</script>
+
+</body>
+</html>
