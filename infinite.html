@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Cyberpunk Portfolio</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    body{
+      overflow: hidden;
+      background: black;
+      font-family: monospace;
+    }
+
+    canvas{
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
+
+    .glass{
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(0,255,170,0.2);
+      box-shadow: 0 0 30px rgba(0,255,170,0.2);
+    }
+
+    .glow{
+      text-shadow: 0 0 10px #00ffae;
+    }
+
+    .cursor{
+      display: inline-block;
+      width: 10px;
+      background: #00ffae;
+      margin-left: 5px;
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink{
+      50%{
+        opacity: 0;
+      }
+    }
+
+    .terminal-line{
+      opacity: 0;
+      transform: translateY(10px);
+      animation: show 0.5s forwards;
+    }
+
+    @keyframes show{
+      to{
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+
+<body class="flex items-center justify-center min-h-screen text-green-400">
+
+  <canvas id="matrix"></canvas>
+
+  
+  <div class="glass rounded-3xl p-8 w-[90%] md:w-[700px] z-10 relative">
+
+    <div class="flex items-center gap-2 mb-6">
+      <div class="w-4 h-4 rounded-full bg-red-500"></div>
+      <div class="w-4 h-4 rounded-full bg-yellow-400"></div>
+      <div class="w-4 h-4 rounded-full bg-green-500"></div>
+    </div>
+
+    <h1 class="text-4xl md:text-6xl font-bold glow mb-6">
+      <span id="typing"></span>
+      <span class="cursor"></span>
+    </h1>
+
+    
+    <div class="space-y-3 text-sm md:text-base">
+
+      <p class="terminal-line" style="animation-delay: .5s">
+        > Initializing Portfolio...
+      </p>
+
+      <p class="terminal-line" style="animation-delay: 1s">
+        > Loading Skills...
+      </p>
+
+      <p class="terminal-line" style="animation-delay: 1.5s">
+        > HTML / TailwindCSS / JavaScript
+      </p>
+
+      <p class="terminal-line" style="animation-delay: 2s">
+        > Laravel Developer
+      </p>
+
+      <p class="terminal-line" style="animation-delay: 2.5s">
+        > Access Granted ✔
+      </p>
+
+    </div>
+
+ 
+    <div class="flex gap-4 mt-8">
+
+      <button class="px-6 py-3 border border-green-400 rounded-xl hover:bg-green-400 hover:text-black transition duration-300">
+        Projects
+      </button>
+
+      <button class="px-6 py-3 border border-cyan-400 rounded-xl hover:bg-cyan-400 hover:text-black transition duration-300">
+        Contact
+      </button>
+
+    </div>
+
+  </div>
+
+  <script>
+   
+    const text = "HACKER PORTFOLIO";
+    let i = 0;
+
+    function type() {
+      if (i < text.length) {
+        document.getElementById("typing").innerHTML += text.charAt(i);
+        i++;
+        setTimeout(type, 100);
+      }
+    }
+
+    type();
+
+   
+    const canvas = document.getElementById("matrix");
+    const ctx = canvas.getContext("2d");
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const letters = "01HACKERPORTFOLIO";
+    const fontSize = 14;
+    const columns = canvas.width / fontSize;
+
+    const drops = [];
+
+    for(let x = 0; x < columns; x++){
+      drops[x] = 1;
+    }
+
+    function draw(){
+      ctx.fillStyle = "rgba(0,0,0,0.05)";
+      ctx.fillRect(0,0,canvas.width,canvas.height);
+
+      ctx.fillStyle = "#00ff99";
+      ctx.font = fontSize + "px monospace";
+
+      for(let i = 0; i < drops.length; i++){
+
+        const text = letters.charAt(
+          Math.floor(Math.random() * letters.length)
+        );
+
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+        if(drops[i] * fontSize > canvas.height && Math.random() > 0.975){
+          drops[i] = 0;
+        }
+
+        drops[i]++;
+      }
+    }
+
+    setInterval(draw, 33);
+
+    window.addEventListener("resize", () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+  </script>
+
+</body>
+</html>

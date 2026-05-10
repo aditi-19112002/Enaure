@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Mother's Day Surprise</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:sans-serif;
+    }
+
+    body{
+      overflow:hidden;
+      background:black;
+    }
+
+    video{
+      position:fixed;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      z-index:-2;
+    }
+
+    .overlay{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,0.45);
+      z-index:-1;
+    }
+
+    .glass{
+      backdrop-filter: blur(14px);
+      background: rgba(255,255,255,0.08);
+      border:1px solid rgba(255,255,255,0.15);
+      box-shadow:0 0 40px rgba(255,0,128,0.4);
+    }
+
+    .glow{
+      text-shadow:
+      0 0 10px #ff0080,
+      0 0 20px #ff0080,
+      0 0 40px #ff0080;
+    }
+
+    .heart{
+      position:absolute;
+      font-size:20px;
+      animation:float 5s linear forwards;
+      pointer-events:none;
+    }
+
+    @keyframes float{
+      0%{
+        transform:translateY(0) scale(0);
+        opacity:1;
+      }
+      100%{
+        transform:translateY(-100vh) scale(2);
+        opacity:0;
+      }
+    }
+
+    .typing{
+      overflow:hidden;
+      border-right:3px solid white;
+      white-space:nowrap;
+      width:0;
+      animation:typing 4s steps(40,end) forwards, blink .8s infinite;
+    }
+
+    @keyframes typing{
+      to{
+        width:100%;
+      }
+    }
+
+    @keyframes blink{
+      50%{
+        border-color:transparent;
+      }
+    }
+
+    .btn{
+      transition:.4s;
+    }
+
+    .btn:hover{
+      transform:scale(1.1);
+      box-shadow:0 0 30px hotpink;
+    }
+
+    .photo{
+      animation:floatCard 4s ease-in-out infinite;
+    }
+
+    @keyframes floatCard{
+      0%,100%{
+        transform:translateY(0px);
+      }
+      50%{
+        transform:translateY(-15px);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <video autoplay muted loop>
+    <source src="https://cdn.coverr.co/videos/coverr-clouds-and-sunset-1564849599980?download=1080p" type="video/mp4">
+  </video>
+
+  <div class="overlay"></div>
+
+  
+  <section class="min-h-screen flex items-center justify-center px-4">
+
+    <div class="glass rounded-3xl p-8 md:p-12 text-center max-w-3xl w-full relative overflow-hidden">
+      
+      <h1 class="text-5xl md:text-7xl font-black text-white glow mt-8">
+        HAPPY
+        <span class="text-white">MOTHER'S</span>
+        DAY 
+      </h1>
+
+
+      <div class="flex justify-center mt-6">
+        <p class="typing text-white text-lg md:text-2xl">
+          “My first home was my mother's heart...”
+        </p>
+      </div>
+
+      <p id="message"
+        class="text-gray-200 text-lg leading-relaxed mt-8 opacity-0 transition duration-1000">
+        🌸 Thank you Mom for every sacrifice, every smile, and every sleepless night.
+        <br><br>
+        ❤️ You are my forever superhero ❤️
+      </p>
+
+    
+      <button id="btn"
+        class="btn mt-10 bg-pink-600 text-white px-10 py-4 rounded-full text-xl font-bold">
+        Tap For Surprise 🎁
+      </button>
+
+    </div>
+
+  </section>
+
+  
+  <audio id="music">
+    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3?filename=beautiful-piano-ambient-110624.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+
+    const btn = document.getElementById("btn");
+    const msg = document.getElementById("message");
+    const music = document.getElementById("music");
+
+    btn.addEventListener("click",()=>{
+
+    
+      msg.style.opacity = "1";
+
+      
+      music.play();
+
+    
+      for(let i=0;i<80;i++){
+        createHeart();
+      }
+
+    
+      btn.innerHTML = "I Love You Mom 💖";
+    });
+
+    function createHeart(){
+
+      const heart = document.createElement("div");
+
+      heart.classList.add("heart");
+
+      heart.innerHTML = ["💖","🌸","❤️","💕"][Math.floor(Math.random()*4)];
+
+      heart.style.left = Math.random()*100 + "vw";
+
+      heart.style.bottom = "-20px";
+
+      heart.style.fontSize = Math.random()*30 + 20 + "px";
+
+      heart.style.animationDuration = (Math.random()*3 + 3) + "s";
+
+      document.body.appendChild(heart);
+
+      setTimeout(()=>{
+        heart.remove();
+      },5000);
+    }
+
+  </script>
+
+</body>
+</html>
