@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>AI Cyberpunk System</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+
+    body{
+      overflow:hidden;
+      background:black;
+      font-family:monospace;
+    }
+
+    canvas{
+      position:fixed;
+      top:0;
+      left:0;
+      z-index:0;
+    }
+
+    
+    .glass{
+      background:rgba(0,0,0,0.4);
+      backdrop-filter:blur(15px);
+      border:1px solid rgba(0,255,255,0.2);
+      box-shadow:
+      0 0 20px rgba(0,255,255,0.2),
+      0 0 50px rgba(0,255,255,0.1);
+    }
+
+   
+    .glow{
+      text-shadow:
+      0 0 5px cyan,
+      0 0 10px cyan,
+      0 0 20px cyan,
+      0 0 40px cyan;
+    }
+
+    .cursor{
+      display:inline-block;
+      width:10px;
+      height:40px;
+      background:cyan;
+      animation:blink .8s infinite;
+    }
+
+    @keyframes blink{
+      50%{
+        opacity:0;
+      }
+    }
+
+    .float{
+      animation:float 4s ease-in-out infinite;
+    }
+
+    @keyframes float{
+      0%,100%{
+        transform:translateY(0px);
+      }
+      50%{
+        transform:translateY(-15px);
+      }
+    }
+
+  
+    .scan{
+      position:absolute;
+      width:100%;
+      height:5px;
+      background:rgba(0,255,255,0.3);
+      animation:scan 4s linear infinite;
+    }
+
+    @keyframes scan{
+      from{
+        top:-10%;
+      }
+      to{
+        top:110%;
+      }
+    }
+
+    /* Pulse */
+    .pulse{
+      animation:pulse 2s infinite;
+    }
+
+    @keyframes pulse{
+      0%{
+        transform:scale(1);
+      }
+
+      50%{
+        transform:scale(1.05);
+      }
+
+      100%{
+        transform:scale(1);
+      }
+    }
+
+    .circle{
+      position:absolute;
+      border:1px solid rgba(0,255,255,0.3);
+      border-radius:50%;
+      animation:rotate 10s linear infinite;
+    }
+
+    @keyframes rotate{
+      from{
+        transform:rotate(0deg);
+      }
+      to{
+        transform:rotate(360deg);
+      }
+    }
+
+  </style>
+</head>
+
+<body class="flex items-center justify-center min-h-screen text-cyan-300">
+
+ 
+  <canvas id="matrix"></canvas>
+
+ 
+  <div class="circle w-[500px] h-[500px]"></div>
+  <div class="circle w-[700px] h-[700px]"></div>
+
+ 
+  <div class="glass relative z-10 rounded-3xl p-8
+    w-[95%] md:w-[850px] overflow-hidden">
+
+    
+    <div class="scan"></div>
+
+   
+    <div class="flex items-center justify-between mb-10">
+
+      <div class="flex gap-3">
+        <div class="w-4 h-4 bg-red-500 rounded-full"></div>
+        <div class="w-4 h-4 bg-yellow-400 rounded-full"></div>
+        <div class="w-4 h-4 bg-green-500 rounded-full"></div>
+      </div>
+
+      <div class="text-sm tracking-widest">
+        AI SYSTEM ONLINE
+      </div>
+
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-10 items-center">
+
+      <div>
+
+        <h1 class="text-5xl md:text-7xl font-black glow leading-tight">
+
+          <span id="typing"></span>
+          <span class="cursor"></span>
+
+        </h1>
+
+        <p class="mt-6 text-gray-400 text-lg leading-relaxed">
+
+          Futuristic AI dashboard with cyberpunk visuals,
+          neon effects, floating UI and matrix animations.
+
+        </p>
+
+      
+        <div class="flex gap-4 mt-8">
+
+          <button class="px-6 py-3 rounded-2xl
+            border border-cyan-400
+            hover:bg-cyan-400 hover:text-black
+            duration-300 pulse">
+
+            Launch UI
+
+          </button>
+
+          <button class="px-6 py-3 rounded-2xl
+            border border-pink-500
+            hover:bg-pink-500 hover:text-black
+            duration-300">
+
+            Source Code
+
+          </button>
+
+        </div>
+
+      </div>
+
+    
+      <div class="relative">
+
+        <div class="glass rounded-3xl p-6 float">
+
+          <div class="flex justify-between items-center mb-6">
+
+            <h2 class="text-xl font-bold">
+              Neural System
+            </h2>
+
+            <div class="text-green-400 animate-pulse">
+              ● ONLINE
+            </div>
+
+          </div>
+
+       
+          <div class="space-y-5">
+
+            <div>
+              <div class="flex justify-between mb-2">
+                <span>AI Power</span>
+                <span>95%</span>
+              </div>
+
+              <div class="w-full h-3 bg-black rounded-full overflow-hidden">
+
+                <div class="h-full bg-cyan-400 w-[95%]"></div>
+
+              </div>
+            </div>
+
+            <div>
+              <div class="flex justify-between mb-2">
+                <span>Security</span>
+                <span>88%</span>
+              </div>
+
+              <div class="w-full h-3 bg-black rounded-full overflow-hidden">
+
+                <div class="h-full bg-pink-500 w-[88%]"></div>
+
+              </div>
+            </div>
+
+            <div>
+              <div class="flex justify-between mb-2">
+                <span>System Speed</span>
+                <span>99%</span>
+              </div>
+
+              <div class="w-full h-3 bg-black rounded-full overflow-hidden">
+
+                <div class="h-full bg-green-400 w-[99%]"></div>
+
+              </div>
+            </div>
+
+          </div>
+
+         
+          <div class="mt-8 bg-black rounded-2xl p-4 text-sm">
+
+            <p>> Initializing AI...</p>
+            <p>> Connecting Neural Network...</p>
+            <p>> Access Granted ✔</p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+<script>
+
+ 
+  const text = "CYBER AI";
+  let i = 0;
+
+  function type(){
+
+    if(i < text.length){
+
+      document.getElementById("typing").innerHTML += text.charAt(i);
+
+      i++;
+
+      setTimeout(type,150);
+    }
+  }
+
+  type();
+
+  const canvas = document.getElementById("matrix");
+  const ctx = canvas.getContext("2d");
+
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  const letters =
+  "01ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+  const fontSize = 14;
+
+  const columns = canvas.width / fontSize;
+
+  const drops = [];
+
+  for(let x = 0; x < columns; x++){
+
+    drops[x] = 1;
+  }
+
+  function draw(){
+
+    ctx.fillStyle = "rgba(0,0,0,0.05)";
+
+    ctx.fillRect(
+      0,
+      0,
+      canvas.width,
+      canvas.height
+    );
+
+    ctx.fillStyle = "#00ffff";
+
+    ctx.font = fontSize + "px monospace";
+
+    for(let i = 0; i < drops.length; i++){
+
+      const text =
+      letters.charAt(
+        Math.floor(Math.random() * letters.length)
+      );
+
+      ctx.fillText(
+        text,
+        i * fontSize,
+        drops[i] * fontSize
+      );
+
+      if(
+        drops[i] * fontSize > canvas.height &&
+        Math.random() > 0.975
+      ){
+        drops[i] = 0;
+      }
+
+      drops[i]++;
+    }
+  }
+
+  setInterval(draw,33);
+
+
+  window.addEventListener("resize",()=>{
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+  });
+
+</script>
+
+</body>
+</html>
