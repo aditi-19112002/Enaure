@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Flip Card Hover Effect</title>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, sans-serif;
+    }
+
+    body{
+      height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      background:#0f172a;
+    }
+
+    .card{
+      width:300px;
+      height:380px;
+      perspective:1000px;
+    }
+
+    .card-inner{
+      width:100%;
+      height:100%;
+      position:relative;
+      transition:transform 0.8s;
+      transform-style:preserve-3d;
+    }
+
+    .card:hover .card-inner{
+      transform:rotateY(180deg);
+    }
+
+    .front,
+    .back{
+      position:absolute;
+      width:100%;
+      height:100%;
+      border-radius:20px;
+      backface-visibility:hidden;
+      overflow:hidden;
+      box-shadow:0 10px 30px rgba(0,0,0,0.4);
+    }
+
+    .front{
+      background:linear-gradient(135deg,#06b6d4,#3b82f6);
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      color:white;
+    }
+
+    .front img{
+      width:120px;
+      height:120px;
+      border-radius:50%;
+      object-fit:cover;
+      border:4px solid white;
+      margin-bottom:20px;
+    }
+
+    .front h2{
+      font-size:28px;
+      margin-bottom:10px;
+    }
+
+    .front p{
+      opacity:0.9;
+    }
+
+    .back{
+      background:white;
+      color:#111827;
+      transform:rotateY(180deg);
+      padding:30px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      text-align:center;
+    }
+
+    .back h2{
+      margin-bottom:15px;
+      font-size:28px;
+    }
+
+    .back p{
+      line-height:1.6;
+      margin-bottom:20px;
+    }
+
+    .btn{
+      padding:12px 25px;
+      border:none;
+      border-radius:30px;
+      background:#3b82f6;
+      color:white;
+      cursor:pointer;
+      transition:0.3s;
+    }
+
+    .btn:hover{
+      background:#2563eb;
+      transform:scale(1.05);
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <div class="card">
+
+    <div class="card-inner">
+
+   
+      <div class="front">
+        <img src="aditi.jpeg" alt="">
+        <h2>Aditi Keshri</h2>
+        <p>Frontend Developer</p>
+      </div>
+
+     
+      <div class="back">
+        <h2>About Me</h2>
+        <p>
+          Passionate frontend developer who loves creating modern UI designs
+          using HTML, CSS, Tailwind & JavaScript.
+        </p>
+
+        <button class="btn">Follow</button>
+      </div>
+
+    </div>
+
+  </div>
+
+</body>
+</html>
