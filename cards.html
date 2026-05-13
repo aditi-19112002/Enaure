@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <title>Animated Add To Cart</title>
+
+  <style>
+    .fly {
+      position: absolute;
+      width: 80px;
+      transition: all 1s ease-in-out;
+      z-index: 100;
+    }
+
+    @keyframes cartBounce {
+      0%,100%{
+        transform: scale(1);
+      }
+      50%{
+        transform: scale(1.2);
+      }
+    }
+
+    .bounce {
+      animation: cartBounce 0.5s;
+    }
+  </style>
+</head>
+
+<body class="bg-gray-100 h-screen flex items-center justify-center">
+
+  
+  <div class="relative w-full h-full flex items-center justify-center">
+
+  
+    <div class="bg-white p-6 rounded-3xl shadow-2xl text-center">
+
+     
+      <img
+        id="cloth"
+        src="https://tse1.mm.bing.net/th/id/OIP.8QyP63oYyBti3Gf8PeBFZwHaHR?pid=Api&P=0&h=180"
+        class="w-52 rounded-2xl mx-auto"
+      >
+
+      <h1 class="text-2xl font-bold mt-4"> T-Shirt</h1>
+
+     
+      <button
+        onclick="addToCart()"
+        class="mt-5 bg-black text-white px-6 py-3 rounded-full hover:scale-105 duration-300"
+      >
+        Add To Cart
+      </button>
+    </div>
+
+   
+    <div
+      id="cart"
+      class="fixed top-8 right-8 bg-black text-white p-4 rounded-full shadow-2xl"
+    >
+      🛒
+    </div>
+
+  </div>
+
+  <script>
+    function addToCart() {
+
+      const cloth = document.getElementById("cloth");
+      const cart = document.getElementById("cart");
+
+      const clone = cloth.cloneNode(true);
+
+    
+      const rect = cloth.getBoundingClientRect();
+
+      clone.style.left = rect.left + "px";
+      clone.style.top = rect.top + "px";
+
+      clone.classList.add("fly");
+
+      document.body.appendChild(clone);
+
+     
+      const cartRect = cart.getBoundingClientRect();
+
+      setTimeout(() => {
+        clone.style.left = cartRect.left + "px";
+        clone.style.top = cartRect.top + "px";
+        clone.style.width = "20px";
+        clone.style.opacity = "0.5";
+      }, 50);
+
+      
+      setTimeout(() => {
+        clone.remove();
+
+      
+        cart.classList.add("bounce");
+
+        setTimeout(() => {
+          cart.classList.remove("bounce");
+        }, 500);
+
+      }, 1000);
+    }
+  </script>
+
+</body>
+</html>
