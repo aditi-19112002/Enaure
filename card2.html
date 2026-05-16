@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Modern Card Design</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gradient-to-br from-black via-gray-900 to-black min-h-screen flex items-center justify-center p-6">
+
+  <!-- Card -->
+  <div class="group relative w-[340px] bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl overflow-hidden shadow-2xl hover:scale-105 transition duration-500">
+
+    <!-- Image -->
+    <div class="overflow-hidden">
+      <img 
+        src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1000&auto=format&fit=crop"
+        class="w-full h-56 object-cover group-hover:scale-110 transition duration-500"
+      />
+    </div>
+
+    <!-- Content -->
+    <div class="p-6 text-white">
+
+      <span class="bg-pink-500/20 text-pink-400 text-xs px-3 py-1 rounded-full">
+        Technology
+      </span>
+
+      <h2 class="text-2xl font-bold mt-4">
+        Futuristic Card UI
+      </h2>
+
+      <p class="text-gray-300 mt-3 text-sm leading-6">
+        Modern glassmorphism card design using Tailwind CSS with hover effects and responsive layout.
+      </p>
+
+      <!-- Button -->
+      <button class="mt-6 w-full py-3 rounded-xl bg-gradient-to-r from-pink-500 to-purple-500 font-semibold hover:opacity-90 transition">
+        Explore Now
+      </button>
+
+    </div>
+
+    <!-- Glow Effect -->
+    <div class="absolute -top-10 -right-10 w-32 h-32 bg-pink-500 blur-3xl opacity-20"></div>
+
+  </div>
+
+</body>
+</html>
