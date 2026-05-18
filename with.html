@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <title>Healthcare Landing Page</title>
+</head>
+
+<body class="bg-gray-100 font-sans">
+
+  <!-- Top Bar -->
+  <div class="bg-[#3b3151] text-white text-sm px-6 py-2 flex justify-between items-center">
+    <p>24/7 Helpline: 1800-DR-MITRA</p>
+    <p>📍 Location: Purnea</p>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="bg-white shadow-sm px-6 py-4 flex items-center justify-between">
+
+    <!-- Logo -->
+    <div>
+      <h1 class="text-3xl font-bold">
+        <span class="text-[#1f3f5b]">DR</span>
+        <span class="text-teal-500">MITRA</span>
+      </h1>
+      <p class="text-[10px] tracking-[3px] text-gray-500">
+        COMPLETE MEDICAL ECOSYSTEM
+      </p>
+    </div>
+
+    <!-- Menu -->
+    <div class="hidden md:flex items-center gap-8 text-gray-700">
+
+      <a href="#" class="hover:text-teal-500 transition">🩺 Doctors</a>
+
+      <a href="#" class="hover:text-teal-500 transition">🧪 Lab Tests</a>
+
+      <a href="#" class="hover:text-teal-500 transition">💊 Medicines</a>
+
+      <a href="#" class="hover:text-teal-500 transition">🚑 Emergency</a>
+
+    </div>
+
+    <!-- Buttons -->
+    <div class="flex items-center gap-4">
+      <button class="text-gray-700 font-medium">
+        Login
+      </button>
+
+      <button class="bg-teal-600 hover:bg-teal-700 text-white px-5 py-2 rounded-xl font-semibold transition">
+        Sign up
+      </button>
+    </div>
+
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="relative h-[420px] bg-gradient-to-r from-teal-600 via-[#123c52] to-[#041b47] flex items-center justify-center">
+
+    <h1 class="text-white text-3xl md:text-6xl font-bold text-center px-4">
+      COMPREHENSIVE HEALTHCARE ECOSYSTEM
+    </h1>
+
+    <!-- Slider Dots -->
+    <div class="absolute bottom-10 flex gap-2">
+
+      <div class="w-6 h-2 bg-white rounded-full"></div>
+
+      <div class="w-2 h-2 bg-gray-400 rounded-full"></div>
+
+      <div class="w-2 h-2 bg-gray-400 rounded-full"></div>
+
+    </div>
+
+  </section>
+
+  <!-- Search Box -->
+  <div class="relative -mt-8 px-4">
+
+    <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl flex items-center overflow-hidden">
+
+      <div class="px-5 text-2xl text-gray-400">
+        🔍
+      </div>
+
+      <input 
+        type="text"
+        placeholder="Search doctors, specializations, tests, medicines..."
+        class="w-full py-5 outline-none text-gray-700"
+      >
+
+      <button class="bg-teal-600 hover:bg-teal-700 text-white px-8 py-5 font-semibold transition">
+        SEARCH
+      </button>
+
+    </div>
+
+  </div>
+
+  <!-- Services -->
+  <section class="py-16 px-6">
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+
+      <!-- Card 1 -->
+      <div class="bg-white rounded-2xl p-10 text-center shadow hover:shadow-xl transition border">
+
+        <div class="text-5xl mb-4 text-teal-500">
+          🩺
+        </div>
+
+        <h3 class="font-semibold tracking-wider text-gray-700">
+          DOCTOR APPOINTMENT
+        </h3>
+
+      </div>
+
+      <!-- Card 2 -->
+      <div class="bg-white rounded-2xl p-10 text-center shadow hover:shadow-xl transition border">
+
+        <div class="text-5xl mb-4 text-blue-500">
+          🧪
+        </div>
+
+        <h3 class="font-semibold tracking-wider text-gray-700">
+          LAB APPOINTMENT
+        </h3>
+
+      </div>
+
+      <!-- Card 3 -->
+      <div class="bg-white rounded-2xl p-10 text-center shadow hover:shadow-xl transition border">
+
+        <div class="text-5xl mb-4 text-purple-500">
+          📄
+        </div>
+
+        <h3 class="font-semibold tracking-wider text-gray-700">
+          DOCTOR REPORT
+        </h3>
+
+      </div>
+
+      <!-- Card 4 -->
+      <div class="bg-white rounded-2xl p-10 text-center shadow hover:shadow-xl transition border">
+
+        <div class="text-5xl mb-4 text-orange-500">
+          💊
+        </div>
+
+        <h3 class="font-semibold tracking-wider text-gray-700">
+          ONLINE MEDICINE
+        </h3>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</body>
+</html>
