@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <title>Animated Order Button</title>
+
+  <style>
+    .product {
+      position: absolute;
+      width: 70px;
+      border-radius: 12px;
+      transition: all 1s cubic-bezier(0.65, -0.2, 0.25, 1.3);
+      z-index: 100;
+      pointer-events: none;
+    }
+
+    @keyframes truckMove {
+      0%{
+        transform: translateX(0);
+      }
+      50%{
+        transform: translateX(8px);
+      }
+      100%{
+        transform: translateX(0);
+      }
+    }
+
+    .truck-animation{
+      animation: truckMove 0.5s ease;
+    }
+
+    @keyframes donePop{
+      0%{
+        transform: scale(0);
+      }
+      100%{
+        transform: scale(1);
+      }
+    }
+
+    .done-animation{
+      animation: donePop .4s ease;
+    }
+  </style>
+</head>
+
+<body class="bg-black min-h-screen flex items-center justify-center overflow-hidden">
+
+
+  <div class="bg-zinc-900 p-8 rounded-3xl shadow-2xl text-center relative">
+
+    
+    <img
+      id="cloth"
+      src="https://tse2.mm.bing.net/th/id/OIP.mFUujDcB2zM9cPYAid1hagHaJ3?pid=Api&P=0&h=180"
+      class="w-56 rounded-2xl mx-auto"
+    >
+
+    <h1 class="text-white text-3xl font-bold mt-5">
+      Premium Hoodie
+    </h1>
+
+    <button
+      id="orderBtn"
+      onclick="startOrder()"
+      class="relative overflow-hidden mt-6 bg-black hover:bg-black text-white px-8 py-4 rounded-full text-lg font-bold flex items-center gap-3 mx-auto duration-300"
+    >
+
+      <span id="truck" class="text-2xl">
+        🚚
+      </span>
+
+      
+      <span id="btnText">
+        Order Now
+      </span>
+
+    </button>
+
+  </div>
+
+  <script>
+    function startOrder(){
+
+      const cloth = document.getElementById("cloth");
+      const button = document.getElementById("orderBtn");
+      const truck = document.getElementById("truck");
+      const text = document.getElementById("btnText");
+
+ 
+      const clone = cloth.cloneNode(true);
+
+      const rect = cloth.getBoundingClientRect();
+      const btnRect = button.getBoundingClientRect();
+
+      clone.classList.add("product");
+
+      clone.style.left = rect.left + "px";
+      clone.style.top = rect.top + "px";
+
+      document.body.appendChild(clone);
+
+     
+      setTimeout(() => {
+        clone.style.left = btnRect.left + 40 + "px";
+        clone.style.top = btnRect.top + "px";
+        clone.style.width = "20px";
+        clone.style.opacity = "0";
+      }, 50);
+
+   
+      truck.classList.add("truck-animation");
+
+      setTimeout(() => {
+        truck.classList.remove("truck-animation");
+      }, 500);
+
+      // done state
+      setTimeout(() => {
+
+        clone.remove();
+
+        button.classList.remove("bg-green-500");
+        button.classList.add("bg-blue-500");
+
+        text.innerHTML = "Order Placed ✓";
+
+        text.classList.add("done-animation");
+
+      }, 1000);
+
+    }
+  </script>
+
+</body>
+</html>
