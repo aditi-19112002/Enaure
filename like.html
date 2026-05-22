@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <title>Water Loader</title>
+
+  <style>
+
+    body{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      min-height:100vh;
+      background:black;
+      overflow:hidden;
+      font-family:sans-serif;
+    }
+
+    
+
+    .loader{
+      position:relative;
+      width:220px;
+      height:220px;
+      border:6px solid #00ffff;
+      border-radius:50%;
+      overflow:hidden;
+      box-shadow:
+      0 0 30px #00ffff,
+      inset 0 0 30px #00ffff;
+    }
+
+    
+
+    .water{
+      position:absolute;
+      width:200%;
+      height:200%;
+      background:#00ffff;
+      top:55%;
+      left:-50%;
+      border-radius:40%;
+      animation:
+      wave 5s linear infinite,
+      fill 4s ease-in-out infinite alternate;
+    }
+
+   
+
+    @keyframes wave{
+
+      0%{
+        transform:rotate(0deg);
+      }
+
+      100%{
+        transform:rotate(360deg);
+      }
+
+    }
+
+
+    @keyframes fill{
+
+      0%{
+        top:65%;
+      }
+
+      100%{
+        top:35%;
+      }
+
+    }
+
+  
+
+    .percent{
+      position:absolute;
+      inset:0;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      color:white;
+      font-size:2.5rem;
+      font-weight:bold;
+      z-index:10;
+      text-shadow:0 0 15px #00ffff;
+    }
+
+  </style>
+</head>
+
+<body>
+
+
+  <div class="loader">
+
+    
+    <div class="water"></div>
+
+   
+    <div class="percent">
+      80%
+    </div>
+
+  </div>
+
+</body>
+</html>
