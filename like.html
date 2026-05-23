@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
+  <!-- TailwindCSS -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <title>Water Loader</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+  <title>Animated Social Button</title>
 
   <style>
 
@@ -20,75 +25,160 @@
       font-family:sans-serif;
     }
 
-    
+    /* Main Circle */
 
-    .loader{
+    .social-box{
       position:relative;
-      width:220px;
-      height:220px;
-      border:6px solid #00ffff;
-      border-radius:50%;
-      overflow:hidden;
-      box-shadow:
-      0 0 30px #00ffff,
-      inset 0 0 30px #00ffff;
+      width:320px;
+      height:320px;
     }
 
-    
+    /* Cards */
 
-    .water{
+    .card{
       position:absolute;
-      width:200%;
-      height:200%;
-      background:#00ffff;
-      top:55%;
-      left:-50%;
-      border-radius:40%;
-      animation:
-      wave 5s linear infinite,
-      fill 4s ease-in-out infinite alternate;
-    }
-
-   
-
-    @keyframes wave{
-
-      0%{
-        transform:rotate(0deg);
-      }
-
-      100%{
-        transform:rotate(360deg);
-      }
-
-    }
-
-
-    @keyframes fill{
-
-      0%{
-        top:65%;
-      }
-
-      100%{
-        top:35%;
-      }
-
-    }
-
-  
-
-    .percent{
-      position:absolute;
-      inset:0;
+      width:145px;
+      height:145px;
+      background:#dffcff;
       display:flex;
       justify-content:center;
       align-items:center;
+      transition:.4s ease-in-out;
+      cursor:pointer;
+      overflow:hidden;
+      box-shadow:0 0 20px rgba(0,255,255,.3);
+    }
+
+    /* Shapes */
+
+    .top-left{
+      top:0;
+      left:0;
+      border-radius:100% 0 0 0;
+    }
+
+    .top-right{
+      top:0;
+      right:0;
+      border-radius:0 100% 0 0;
+    }
+
+    .bottom-left{
+      bottom:0;
+      left:0;
+      border-radius:0 0 0 100%;
+      background:#2f2f2f;
+    }
+
+    .bottom-right{
+      bottom:0;
+      right:0;
+      border-radius:0 0 100% 0;
+    }
+
+    /* Hover Effects */
+
+    .card:hover{
+      transform:scale(1.08);
+      z-index:5;
+    }
+
+    .top-left:hover{
+      background:#ff4d6d;
+    }
+
+    .top-right:hover{
+      background:#1DA1F2;
+    }
+
+    .bottom-left:hover{
+      background:#181717;
+    }
+
+    .bottom-right:hover{
+      background:#5865F2;
+    }
+
+    .card:hover i{
       color:white;
-      font-size:2.5rem;
-      font-weight:bold;
+      transform:rotate(10deg) scale(1.2);
+    }
+
+    /* Icons */
+
+    .card i{
+      font-size:3rem;
+      transition:.4s;
+    }
+
+    .instagram{
+      color:#ff4d6d;
+    }
+
+    .twitter{
+      color:#1DA1F2;
+    }
+
+    .github{
+      color:black;
+    }
+
+    .discord{
+      color:#5865F2;
+    }
+
+    /* Center Button */
+
+    .share-btn{
+      position:absolute;
+      top:50%;
+      left:50%;
+      transform:translate(-50%,-50%);
+      width:90px;
+      height:90px;
+      border-radius:50%;
+      background:#dffcff;
+      display:flex;
+      justify-content:center;
+      align-items:center;
       z-index:10;
-      text-shadow:0 0 15px #00ffff;
+      cursor:pointer;
+      box-shadow:
+      0 0 25px cyan,
+      0 0 45px cyan;
+      transition:.3s;
+      border:5px solid black;
+    }
+
+    .share-btn:hover{
+      transform:translate(-50%,-50%) scale(1.1) rotate(15deg);
+    }
+
+    .share-btn i{
+      font-size:2.3rem;
+      color:black;
+    }
+
+    /* Floating Animation */
+
+    @keyframes float{
+
+      0%{
+        transform:translateY(0px);
+      }
+
+      50%{
+        transform:translateY(-10px);
+      }
+
+      100%{
+        transform:translateY(0px);
+      }
+
+    }
+
+    .social-box{
+      animation:float 3s ease-in-out infinite;
     }
 
   </style>
@@ -97,14 +187,31 @@
 <body>
 
 
-  <div class="loader">
-
-    
-    <div class="water"></div>
+  <div class="social-box">
 
    
-    <div class="percent">
-      80%
+    <div class="card top-left">
+      <i class="fa-brands fa-instagram instagram"></i>
+    </div>
+
+  
+    <div class="card top-right">
+      <i class="fa-brands fa-twitter twitter"></i>
+    </div>
+
+   
+    <div class="card bottom-left">
+      <i class="fa-brands fa-github github"></i>
+    </div>
+
+   
+    <div class="card bottom-right">
+      <i class="fa-brands fa-discord discord"></i>
+    </div>
+
+ 
+    <div class="share-btn">
+      <i class="fa-solid fa-share-nodes"></i>
     </div>
 
   </div>
