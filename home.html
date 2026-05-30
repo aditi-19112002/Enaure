@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Animated Product Card</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+body{
+    perspective:1000px;
+}
+
+.card:hover .shoe{
+    transform:translateY(-15px) scale(1.1) rotate(-10deg);
+}
+
+.bg-box{
+    transition:.5s;
+}
+</style>
+</head>
+
+<body class="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-200 to-purple-100">
+
+<div class="w-full max-w-5xl h-[600px] rounded-3xl flex items-center justify-center">
+
+    <div id="bgBox"
+         class="bg-box w-[800px] h-[450px] rounded-2xl shadow-2xl flex items-center justify-center"
+         style="background:linear-gradient(135deg,#ff4b4b,#ff004c);">
+
+        <!-- Product Card -->
+        <div class="card bg-white w-80 rounded-xl p-5 shadow-xl">
+
+            <h2 class="text-center font-bold text-2xl">
+                NIKE DUNK
+            </h2>
+
+            <p class="text-center text-gray-400 text-sm mb-4">
+                Customizable Custom Shoes
+            </p>
+
+            <!-- Image -->
+            <div class="flex justify-center overflow-hidden">
+                <img
+                    id="shoe"
+                    class="shoe w-64 transition-all duration-500"
+                    src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600"
+                    alt=""
+                >
+            </div>
+
+            <!-- Colors -->
+            <div class="flex justify-center gap-4 mt-3">
+
+                <button
+                    onclick="changeProduct(
+                    'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600',
+                    'linear-gradient(135deg,#ff4b4b,#ff004c)')"
+                    class="w-5 h-5 rounded-full bg-red-500 border">
+                </button>
+
+                <button
+                    onclick="changeProduct(
+                    'https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=600',
+                    'linear-gradient(135deg,#FFD93D,#FFB703)')"
+                    class="w-5 h-5 rounded-full bg-yellow-400 border">
+                </button>
+
+                <button
+                    onclick="changeProduct(
+                    'https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=600',
+                    'linear-gradient(135deg,#4facfe,#00f2fe)')"
+                    class="w-5 h-5 rounded-full bg-blue-500 border">
+                </button>
+
+                <button
+                    onclick="changeProduct(
+                    'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=600',
+                    'linear-gradient(135deg,#111,#444)')"
+                    class="w-5 h-5 rounded-full bg-black border">
+                </button>
+
+            </div>
+
+            <!-- Price -->
+            <div class="flex justify-between items-center mt-6">
+
+                <h3 class="font-bold text-2xl">
+                    ₹3500
+                </h3>
+
+                <!-- Button -->
+                <button class="group relative overflow-hidden border-2 border-red-500 rounded-full px-5 py-2">
+
+                    <span class="relative z-10 transition duration-300 group-hover:text-white">
+                        Add To Cart
+                    </span>
+
+                    <span class="absolute left-0 bottom-0 w-full h-0 bg-red-500 transition-all duration-300 group-hover:h-full"></span>
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+function changeProduct(image,bg){
+
+    document.getElementById("shoe").src = image;
+
+    document.getElementById("bgBox").style.background = bg;
+
+}
+
+</script>
+
+</body>
+</html>
