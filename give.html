@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Toggle Social Buttons</title>
+
+ 
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+</head>
+
+<body class="bg-black min-h-screen flex items-center justify-center overflow-hidden">
+
+  <div class="relative w-64 h-64 flex items-center justify-center">
+
+    <!-- Social Buttons -->
+
+    <a href="#"
+      class="social absolute w-14 h-14 rounded-full bg-pink-500 text-white text-xl flex items-center justify-center duration-500">
+      <i class="fa-brands fa-instagram"></i>
+    </a>
+
+    <a href="#"
+      class="social absolute w-14 h-14 rounded-full bg-sky-500 text-white text-xl flex items-center justify-center duration-500">
+      <i class="fa-brands fa-x-twitter"></i>
+    </a>
+
+    <a href="#"
+      class="social absolute w-14 h-14 rounded-full bg-red-500 text-white text-xl flex items-center justify-center duration-500">
+      <i class="fa-brands fa-youtube"></i>
+    </a>
+
+    <a href="#"
+      class="social absolute w-14 h-14 rounded-full bg-white text-black text-xl flex items-center justify-center duration-500">
+      <i class="fa-brands fa-github"></i>
+    </a>
+
+    <button id="toggleBtn"
+      class="w-16 h-16 rounded-full bg-cyan-400 text-black text-2xl flex items-center justify-center shadow-[0_0_30px_#22d3ee] hover:scale-110 duration-300 z-10">
+
+      <i class="fa-solid fa-plus"></i>
+
+    </button>
+
+  </div>
+
+  <script>
+
+    const toggleBtn = document.getElementById("toggleBtn");
+    const socials = document.querySelectorAll(".social");
+
+    let active = false;
+
+    toggleBtn.addEventListener("click", () => {
+
+      active = !active;
+
+      if(active){
+
+        socials[0].style.transform = "translateY(-110px)";
+        socials[1].style.transform = "translateX(110px)";
+        socials[2].style.transform = "translateY(110px)";
+        socials[3].style.transform = "translateX(-110px)";
+
+        toggleBtn.innerHTML = `<i class="fa-solid fa-xmark"></i>`;
+
+      } else {
+
+        socials.forEach((btn) => {
+          btn.style.transform = "translate(0,0)";
+        });
+
+        toggleBtn.innerHTML = `<i class="fa-solid fa-plus"></i>`;
+      }
+
+    });
+
+  </script>
+
+</body>
+</html>
