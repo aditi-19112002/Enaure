@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Caveman vs 404</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+body{
+    margin:0;
+    overflow:hidden;
+    background:linear-gradient(135deg,#0f172a,#1e293b);
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:white;
+    font-family:sans-serif;
+}
+
+.scene{
+    display:flex;
+    align-items:center;
+    gap:100px;
+}
+
+.caveman{
+    position:relative;
+    width:180px;
+    height:250px;
+}
+
+.head{
+    width:70px;
+    height:70px;
+    background:#f4c27a;
+    border-radius:50%;
+    position:absolute;
+    left:50px;
+}
+
+.hair{
+    width:75px;
+    height:30px;
+    background:#111;
+    border-radius:40px 40px 10px 10px;
+    position:absolute;
+    top:-5px;
+}
+
+.body{
+    width:90px;
+    height:110px;
+    background:#7c4a1f;
+    border-radius:20px;
+    position:absolute;
+    top:65px;
+    left:40px;
+}
+
+.arm{
+    position:absolute;
+    width:18px;
+    height:90px;
+    background:#f4c27a;
+}
+
+.left-arm{
+    top:70px;
+    left:20px;
+}
+
+.right-arm{
+    top:70px;
+    right:15px;
+    transform-origin:top center;
+}
+
+.swing{
+    animation:swing .4s ease;
+}
+
+@keyframes swing{
+    0%{transform:rotate(0deg);}
+    50%{transform:rotate(-110deg);}
+    100%{transform:rotate(0deg);}
+}
+
+.club{
+    width:18px;
+    height:90px;
+    background:#5b3a1e;
+    border-radius:20px;
+    position:absolute;
+    top:0;
+    left:0;
+}
+
+.club::before{
+    content:"";
+    width:35px;
+    height:35px;
+    background:#7b4f28;
+    border-radius:50%;
+    position:absolute;
+    top:-15px;
+    left:-8px;
+}
+
+.leg{
+    width:20px;
+    height:80px;
+    background:#f4c27a;
+    position:absolute;
+    bottom:0;
+}
+
+.l1{left:50px;}
+.l2{right:50px;}
+
+.error{
+    position:relative;
+    font-size:180px;
+    font-weight:900;
+    user-select:none;
+}
+
+.crack{
+    position:absolute;
+    width:5px;
+    background:#111;
+    opacity:0;
+}
+
+.c1{
+    height:150px;
+    top:20px;
+    left:90px;
+    transform:rotate(20deg);
+}
+
+.c2{
+    height:130px;
+    top:40px;
+    left:180px;
+    transform:rotate(-15deg);
+}
+
+.c3{
+    height:160px;
+    top:10px;
+    left:270px;
+}
+
+.shake{
+    animation:shake .25s;
+}
+
+@keyframes shake{
+    0%,100%{transform:translateX(0);}
+    25%{transform:translateX(-8px);}
+    75%{transform:translateX(8px);}
+}
+
+.particle{
+    position:absolute;
+    width:10px;
+    height:10px;
+    background:#cbd5e1;
+    border-radius:3px;
+}
+
+.message{
+    position:absolute;
+    top:40px;
+    width:100%;
+    text-align:center;
+    font-size:28px;
+    font-weight:bold;
+}
+</style>
+</head>
+<body>
+
+<div class="message" id="msg">
+    Press SPACE to attack 404 ⚒️
+</div>
+
+<div class="scene">
+
+    <div class="caveman">
+        <div class="head">
+            <div class="hair"></div>
+        </div>
+
+        <div class="body"></div>
+
+        <div class="arm left-arm"></div>
+
+        <div class="arm right-arm" id="arm">
+            <div class="club"></div>
+        </div>
+
+        <div class="leg l1"></div>
+        <div class="leg l2"></div>
+    </div>
+
+    <div class="error" id="error">
+        404
+
+        <div class="crack c1"></div>
+        <div class="crack c2"></div>
+        <div class="crack c3"></div>
+    </div>
+
+</div>
+
+<script>
+let hits = 0;
+
+const arm = document.getElementById("arm");
+const error = document.getElementById("error");
+const cracks = document.querySelectorAll(".crack");
+const msg = document.getElementById("msg");
+
+function createParticles(){
+
+    for(let i=0;i<20;i++){
+
+        const p=document.createElement("div");
+        p.className="particle";
+
+        p.style.left=
+        (error.getBoundingClientRect().left+150)+"px";
+
+        p.style.top=
+        (error.getBoundingClientRect().top+100)+"px";
+
+        document.body.appendChild(p);
+
+        const x=(Math.random()*300)-150;
+        const y=(Math.random()*200)-100;
+
+        p.animate([
+            {
+                transform:"translate(0,0)",
+                opacity:1
+            },
+            {
+                transform:`translate(${x}px,${y}px)`,
+                opacity:0
+            }
+        ],{
+            duration:700
+        });
+
+        setTimeout(()=>p.remove(),700);
+    }
+}
+
+document.addEventListener("keydown",(e)=>{
+
+    if(e.code !== "Space") return;
+
+    if(hits >= 5) return;
+
+    hits++;
+
+    arm.classList.add("swing");
+    error.classList.add("shake");
+
+    createParticles();
+
+    setTimeout(()=>{
+        arm.classList.remove("swing");
+        error.classList.remove("shake");
+    },400);
+
+    if(hits>=1) cracks[0].style.opacity=1;
+    if(hits>=3) cracks[1].style.opacity=1;
+    if(hits>=4) cracks[2].style.opacity=1;
+
+    if(hits===5){
+
+        error.style.transition="1s";
+        error.style.transform="scale(.3) rotate(30deg)";
+        error.style.opacity="0";
+
+        msg.innerHTML="🎉 Page Found!";
+
+        setTimeout(()=>{
+            msg.innerHTML="😈 Just Kidding... 404 Not Found";
+        },1500);
+    }
+});
+</script>
+
+</body>
+</html>
