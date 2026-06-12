@@ -2,120 +2,272 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>GSAP Image Slider</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Caveman Destroys Error</title>
 
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
 
 <style>
-body {
-  margin: 0;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #0f0f0f;
-  overflow: hidden;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
-.slider {
-  position: relative;
-  width: 600px;
-  height: 350px;
-  perspective: 1000px;
+body{
+    height:100vh;
+    overflow:hidden;
+    background:linear-gradient(to top,#4a3728,#111);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-family:Arial,sans-serif;
 }
 
-.card {
-  position: absolute;
-  width: 200px;
-  height: 300px;
-  border-radius: 20px;
-  overflow: hidden;
-  transition: 0.5s;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+/* Ground */
+.ground{
+    position:absolute;
+    bottom:0;
+    width:100%;
+    height:150px;
+    background:#3a291c;
 }
 
-.card img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+/* Stone */
+.stone{
+    width:320px;
+    height:220px;
+    background:#777;
+    border-radius:20px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:70px;
+    font-weight:bold;
+    color:white;
+    position:relative;
+    box-shadow:0 10px 25px rgba(0,0,0,.4);
+    transition:.3s;
 }
 
-.controls {
-  position: absolute;
-  bottom: -70px;
-  display: flex;
-  gap: 20px;
+.crack{
+    position:absolute;
+    background:#222;
+    border-radius:10px;
+    opacity:0;
 }
 
-button {
-  padding: 10px 20px;
-  border: none;
-  background: white;
-  cursor: pointer;
-  border-radius: 10px;
-  font-weight: bold;
+.crack1{
+    width:6px;
+    height:100px;
+    transform:rotate(20deg);
+}
+
+.crack2{
+    width:6px;
+    height:130px;
+    transform:rotate(-30deg);
+}
+
+.crack3{
+    width:6px;
+    height:120px;
+    transform:rotate(60deg);
+}
+
+/* Caveman */
+.caveman{
+    position:absolute;
+    left:-250px;
+    bottom:120px;
+    font-size:120px;
+    animation:walk 4s forwards;
+}
+
+@keyframes walk{
+    to{
+        left:18%;
+    }
+}
+
+/* Club */
+.club{
+    position:absolute;
+    right:-30px;
+    top:40px;
+    font-size:60px;
+    transform-origin:left center;
+}
+
+.hit{
+    animation:swing .4s;
+}
+
+@keyframes swing{
+    0%{transform:rotate(0deg);}
+    50%{transform:rotate(-80deg);}
+    100%{transform:rotate(0deg);}
+}
+
+/* Shake */
+.shake{
+    animation:shake .3s;
+}
+
+@keyframes shake{
+    0%,100%{transform:translateX(0);}
+    25%{transform:translateX(-8px);}
+    50%{transform:translateX(8px);}
+    75%{transform:translateX(-8px);}
+}
+
+/* Dust */
+.dust{
+    position:absolute;
+    width:15px;
+    height:15px;
+    background:#ccc;
+    border-radius:50%;
+    opacity:0;
+}
+
+.boom{
+    animation:explode 1.2s forwards;
+}
+
+@keyframes explode{
+    from{
+        opacity:1;
+        transform:translate(0,0) scale(1);
+    }
+    to{
+        opacity:0;
+        transform:
+        translate(
+            calc(-200px + 400px * var(--x)),
+            calc(-150px + 300px * var(--y))
+        )
+        scale(0);
+    }
+}
+
+/* Success */
+.success{
+    position:absolute;
+    color:#00ff88;
+    font-size:60px;
+    font-weight:bold;
+    opacity:0;
+    text-align:center;
+}
+
+.show{
+    animation:showText 1s forwards;
+}
+
+@keyframes showText{
+    from{
+        opacity:0;
+        transform:scale(.3);
+    }
+    to{
+        opacity:1;
+        transform:scale(1);
+    }
 }
 </style>
 </head>
-
 <body>
 
-<div class="slider" id="slider">
+<div class="ground"></div>
 
-  <div class="card"><img src="https://picsum.photos/id/1015/500/700"></div>
-  <div class="card"><img src="https://picsum.photos/id/1016/500/700"></div>
-  <div class="card"><img src="https://picsum.photos/id/1018/500/700"></div>
-  <div class="card"><img src="https://picsum.photos/id/1020/500/700"></div>
-  <div class="card"><img src="https://picsum.photos/id/1024/500/700"></div>
-  <div class="card"><img src="https://picsum.photos/id/1035/500/700"></div>
+<div class="stone" id="stone">
+    ERROR
 
-  <div class="controls">
-    <button onclick="prev()">Prev</button>
-    <button onclick="next()">Next</button>
-  </div>
+    <div class="crack crack1" id="c1"></div>
+    <div class="crack crack2" id="c2"></div>
+    <div class="crack crack3" id="c3"></div>
+</div>
 
+<div class="success" id="success">
+    ERROR DESTROYED ✅
+</div>
+
+<div class="caveman" id="caveman">
+    🧔
+    <div class="club" id="club">🏏</div>
 </div>
 
 <script>
-const cards = document.querySelectorAll(".card");
+const club = document.getElementById("club");
+const stone = document.getElementById("stone");
 
-let positions = [
-  { x: -300, scale: 0.7, z: -200, rot: -15 },
-  { x: -150, scale: 0.85, z: -100, rot: -8 },
-  { x: 0, scale: 1, z: 0, rot: 0 },
-  { x: 150, scale: 0.85, z: -100, rot: 8 },
-  { x: 300, scale: 0.7, z: -200, rot: 15 },
-  { x: 450, scale: 0.5, z: -300, rot: 20 }
-];
+setTimeout(()=>{
+    hitStone(1);
+},4500);
 
-function render() {
-  cards.forEach((card, i) => {
-    let p = positions[i];
+function hitStone(step){
 
-    gsap.to(card, {
-      x: p.x,
-      scale: p.scale,
-      z: p.z,
-      rotationY: p.rot,
-      duration: 0.8,
-      ease: "power3.out"
-    });
+    club.classList.add("hit");
+    stone.classList.add("shake");
 
-    card.style.zIndex = Math.round(p.scale * 10);
-  });
+    setTimeout(()=>{
+        club.classList.remove("hit");
+        stone.classList.remove("shake");
+    },400);
+
+    if(step===1){
+        document.getElementById("c1").style.opacity=1;
+
+        setTimeout(()=>{
+            hitStone(2);
+        },900);
+    }
+
+    else if(step===2){
+        document.getElementById("c2").style.opacity=1;
+
+        setTimeout(()=>{
+            hitStone(3);
+        },900);
+    }
+
+    else if(step===3){
+        document.getElementById("c3").style.opacity=1;
+
+        setTimeout(()=>{
+            destroyStone();
+        },900);
+    }
 }
 
-function next() {
-  positions.unshift(positions.pop());
-  render();
-}
+function destroyStone(){
 
-function prev() {
-  positions.push(positions.shift());
-  render();
-}
+    stone.style.opacity="0";
 
-render();
+    for(let i=0;i<40;i++){
+
+        let dust=document.createElement("div");
+        dust.className="dust boom";
+
+        dust.style.left="50%";
+        dust.style.top="50%";
+
+        dust.style.setProperty("--x",Math.random());
+        dust.style.setProperty("--y",Math.random());
+
+        document.body.appendChild(dust);
+
+        setTimeout(()=>{
+            dust.remove();
+        },1200);
+    }
+
+    document
+    .getElementById("success")
+    .classList
+    .add("show");
+}
 </script>
 
 </body>

@@ -2,299 +2,136 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Caveman vs 404</title>
-
+<title>Tablet Cart UI</title>
 <script src="https://cdn.tailwindcss.com"></script>
-
-<style>
-body{
-    margin:0;
-    overflow:hidden;
-    background:linear-gradient(135deg,#0f172a,#1e293b);
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    color:white;
-    font-family:sans-serif;
-}
-
-.scene{
-    display:flex;
-    align-items:center;
-    gap:100px;
-}
-
-.caveman{
-    position:relative;
-    width:180px;
-    height:250px;
-}
-
-.head{
-    width:70px;
-    height:70px;
-    background:#f4c27a;
-    border-radius:50%;
-    position:absolute;
-    left:50px;
-}
-
-.hair{
-    width:75px;
-    height:30px;
-    background:#111;
-    border-radius:40px 40px 10px 10px;
-    position:absolute;
-    top:-5px;
-}
-
-.body{
-    width:90px;
-    height:110px;
-    background:#7c4a1f;
-    border-radius:20px;
-    position:absolute;
-    top:65px;
-    left:40px;
-}
-
-.arm{
-    position:absolute;
-    width:18px;
-    height:90px;
-    background:#f4c27a;
-}
-
-.left-arm{
-    top:70px;
-    left:20px;
-}
-
-.right-arm{
-    top:70px;
-    right:15px;
-    transform-origin:top center;
-}
-
-.swing{
-    animation:swing .4s ease;
-}
-
-@keyframes swing{
-    0%{transform:rotate(0deg);}
-    50%{transform:rotate(-110deg);}
-    100%{transform:rotate(0deg);}
-}
-
-.club{
-    width:18px;
-    height:90px;
-    background:#5b3a1e;
-    border-radius:20px;
-    position:absolute;
-    top:0;
-    left:0;
-}
-
-.club::before{
-    content:"";
-    width:35px;
-    height:35px;
-    background:#7b4f28;
-    border-radius:50%;
-    position:absolute;
-    top:-15px;
-    left:-8px;
-}
-
-.leg{
-    width:20px;
-    height:80px;
-    background:#f4c27a;
-    position:absolute;
-    bottom:0;
-}
-
-.l1{left:50px;}
-.l2{right:50px;}
-
-.error{
-    position:relative;
-    font-size:180px;
-    font-weight:900;
-    user-select:none;
-}
-
-.crack{
-    position:absolute;
-    width:5px;
-    background:#111;
-    opacity:0;
-}
-
-.c1{
-    height:150px;
-    top:20px;
-    left:90px;
-    transform:rotate(20deg);
-}
-
-.c2{
-    height:130px;
-    top:40px;
-    left:180px;
-    transform:rotate(-15deg);
-}
-
-.c3{
-    height:160px;
-    top:10px;
-    left:270px;
-}
-
-.shake{
-    animation:shake .25s;
-}
-
-@keyframes shake{
-    0%,100%{transform:translateX(0);}
-    25%{transform:translateX(-8px);}
-    75%{transform:translateX(8px);}
-}
-
-.particle{
-    position:absolute;
-    width:10px;
-    height:10px;
-    background:#cbd5e1;
-    border-radius:3px;
-}
-
-.message{
-    position:absolute;
-    top:40px;
-    width:100%;
-    text-align:center;
-    font-size:28px;
-    font-weight:bold;
-}
-</style>
 </head>
-<body>
 
-<div class="message" id="msg">
-    Press SPACE to attack 404 ⚒️
-</div>
+<body class="bg-gray-100">
 
-<div class="scene">
+<div class="max-w-6xl mx-auto p-4">
 
-    <div class="caveman">
-        <div class="head">
-            <div class="hair"></div>
+  <!-- HEADER -->
+  <h1 class="text-2xl font-bold mb-4">Shopping Store 🛍️</h1>
+
+  <!-- MAIN LAYOUT (Tablet Friendly) -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+    <!-- PRODUCTS (2/3 width on tablet) -->
+    <div class="md:col-span-2 space-y-4">
+
+      <h2 class="text-lg font-semibold">Products</h2>
+
+      <!-- Product Card -->
+      <div class="bg-white p-3 rounded-xl shadow flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <img src="https://images.unsplash.com/photo-1520975916090-3105956dac38"
+               class="w-14 h-14 rounded object-cover">
+
+          <div>
+            <p class="font-semibold">Hoodie</p>
+            <p class="text-sm text-gray-500">₹799</p>
+          </div>
         </div>
 
-        <div class="body"></div>
+        <button onclick="addToCart('Hoodie',799,'https://images.unsplash.com/photo-1520975916090-3105956dac38')"
+          class="bg-black text-white px-3 py-1 rounded-lg text-sm">
+          Add
+        </button>
+      </div>
 
-        <div class="arm left-arm"></div>
+      <div class="bg-white p-3 rounded-xl shadow flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f"
+               class="w-14 h-14 rounded object-cover">
 
-        <div class="arm right-arm" id="arm">
-            <div class="club"></div>
+          <div>
+            <p class="font-semibold">Shoes</p>
+            <p class="text-sm text-gray-500">₹1299</p>
+          </div>
         </div>
 
-        <div class="leg l1"></div>
-        <div class="leg l2"></div>
+        <button onclick="addToCart('Shoes',1299,'https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f')"
+          class="bg-black text-white px-3 py-1 rounded-lg text-sm">
+          Add
+        </button>
+      </div>
+
     </div>
 
-    <div class="error" id="error">
-        404
+    <!-- CART (1/3 width on tablet) -->
+    <div class="bg-white p-4 rounded-xl shadow h-fit">
 
-        <div class="crack c1"></div>
-        <div class="crack c2"></div>
-        <div class="crack c3"></div>
+      <h2 class="text-lg font-semibold mb-3">Cart 🛒</h2>
+
+      <div id="cartItems" class="space-y-2"></div>
+
+      <hr class="my-3">
+
+      <p class="font-bold">Total: ₹<span id="total">0</span></p>
+
     </div>
 
+  </div>
 </div>
 
 <script>
-let hits = 0;
 
-const arm = document.getElementById("arm");
-const error = document.getElementById("error");
-const cracks = document.querySelectorAll(".crack");
-const msg = document.getElementById("msg");
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-function createParticles(){
+function addToCart(name, price, image){
 
-    for(let i=0;i<20;i++){
+  let item = cart.find(i => i.name === name);
 
-        const p=document.createElement("div");
-        p.className="particle";
+  if(item){
+    item.qty++;
+  } else {
+    cart.push({name, price, image, qty:1});
+  }
 
-        p.style.left=
-        (error.getBoundingClientRect().left+150)+"px";
-
-        p.style.top=
-        (error.getBoundingClientRect().top+100)+"px";
-
-        document.body.appendChild(p);
-
-        const x=(Math.random()*300)-150;
-        const y=(Math.random()*200)-100;
-
-        p.animate([
-            {
-                transform:"translate(0,0)",
-                opacity:1
-            },
-            {
-                transform:`translate(${x}px,${y}px)`,
-                opacity:0
-            }
-        ],{
-            duration:700
-        });
-
-        setTimeout(()=>p.remove(),700);
-    }
+  localStorage.setItem("cart", JSON.stringify(cart));
+  renderCart();
 }
 
-document.addEventListener("keydown",(e)=>{
+function removeItem(index){
+  cart.splice(index,1);
+  localStorage.setItem("cart", JSON.stringify(cart));
+  renderCart();
+}
 
-    if(e.code !== "Space") return;
+function renderCart(){
 
-    if(hits >= 5) return;
+  let container = document.getElementById("cartItems");
+  container.innerHTML = "";
 
-    hits++;
+  let total = 0;
 
-    arm.classList.add("swing");
-    error.classList.add("shake");
+  cart.forEach((item, index) => {
 
-    createParticles();
+    total += item.price * item.qty;
 
-    setTimeout(()=>{
-        arm.classList.remove("swing");
-        error.classList.remove("shake");
-    },400);
+    container.innerHTML += `
+      <div class="flex items-center justify-between bg-gray-100 p-2 rounded">
 
-    if(hits>=1) cracks[0].style.opacity=1;
-    if(hits>=3) cracks[1].style.opacity=1;
-    if(hits>=4) cracks[2].style.opacity=1;
+        <div class="flex items-center gap-2">
+          <img src="${item.image}" class="w-10 h-10 rounded object-cover">
+          <div>
+            <p class="text-sm font-semibold">${item.name}</p>
+            <p class="text-xs text-gray-600">₹${item.price} × ${item.qty}</p>
+          </div>
+        </div>
 
-    if(hits===5){
+        <button onclick="removeItem(${index})"
+          class="text-red-500 text-sm font-bold">X</button>
 
-        error.style.transition="1s";
-        error.style.transform="scale(.3) rotate(30deg)";
-        error.style.opacity="0";
+      </div>
+    `;
+  });
 
-        msg.innerHTML="🎉 Page Found!";
+  document.getElementById("total").innerText = total;
+}
 
-        setTimeout(()=>{
-            msg.innerHTML="😈 Just Kidding... 404 Not Found";
-        },1500);
-    }
-});
+renderCart();
+
 </script>
 
 </body>
