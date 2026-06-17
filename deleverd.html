@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Animated Order Button</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+<style>
+    body{
+        margin:0;
+        min-height:100vh;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        background:white;
+        overflow:hidden;
+    }
+
+    .order-btn{
+        position:relative;
+        width:340px;
+        height:75px;
+        border:none;
+        border-radius:999px;
+        background:black;
+        color:white;
+        cursor:pointer;
+        overflow:hidden;
+        box-shadow:0 20px 40px rgba(0,0,0,.25);
+    }
+
+    .status{
+        position:absolute;
+        inset:0;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        gap:10px;
+        font-size:22px;
+        font-weight:700;
+        z-index:5;
+    }
+
+    .loader{
+        width:22px;
+        height:22px;
+        border:3px solid rgba(255,255,255,.35);
+        border-top-color:white;
+        border-radius:50%;
+        display:none;
+    }
+
+    .road{
+        position:absolute;
+        left:30px;
+        right:30px;
+        bottom:18px;
+        height:4px;
+        background:rgba(255,255,255,.2);
+        border-radius:999px;
+        overflow:hidden;
+        opacity:0;
+    }
+
+    .progress{
+        width:0%;
+        height:100%;
+        background:white;
+        border-radius:999px;
+    }
+
+    .truck{
+        position:absolute;
+        left:20px;
+        top:50%;
+        transform:translateY(-50%);
+        font-size:32px;
+        opacity:0;
+        z-index:4;
+    }
+
+    .check{
+        display:none;
+    }
+</style>
+</head>
+
+<body>
+
+<button class="order-btn" id="orderBtn">
+
+    <div class="status">
+        <span id="statusText">📦 Place Order</span>
+
+        <div class="loader" id="loader"></div>
+
+        <span class="check" id="check">✓</span>
+    </div>
+
+    <div class="truck" id="truck">
+        🚚
+    </div>
+
+    <div class="road" id="road">
+        <div class="progress" id="progress"></div>
+    </div>
+
+</button>
+
+<script>
+const btn = document.getElementById("orderBtn");
+const statusText = document.getElementById("statusText");
+const loader = document.getElementById("loader");
+const truck = document.getElementById("truck");
+const road = document.getElementById("road");
+const progress = document.getElementById("progress");
+const check = document.getElementById("check");
+
+let running = false;
+
+btn.addEventListener("click", () => {
+
+    if(running) return;
+
+    running = true;
+
+    const tl = gsap.timeline();
+
+    
+    tl.call(() => {
+
+        statusText.textContent = "Preparing...";
+        loader.style.display = "block";
+
+        gsap.to(loader,{
+            rotation:360,
+            repeat:-1,
+            duration:0.8,
+            ease:"none"
+        });
+
+    });
+
+    tl.to({}, { duration:2 });
+
+    /* STEP 2: On The Way */
+    tl.call(() => {
+
+        gsap.killTweensOf(loader);
+
+        loader.style.display = "none";
+
+        statusText.textContent = "🚚 On The Way";
+
+        gsap.set(truck,{
+            opacity:1,
+            x:0
+        });
+
+    });
+
+    tl.to(road,{
+        opacity:1,
+        duration:0.2
+    });
+
+    tl.to(progress,{
+        width:"100%",
+        duration:4,
+        ease:"power1.inOut"
+    },0);
+
+    tl.to(truck,{
+        x:260,
+        duration:4,
+        ease:"power1.inOut"
+    },"<");
+
+    /* STEP 3: Delivered */
+    tl.call(() => {
+
+        statusText.textContent = "Delivered";
+    });
+
+    tl.to(truck,{
+        opacity:0,
+        scale:0.5,
+        duration:0.3
+    });
+
+    tl.to(btn,{
+        backgroundColor:"#16a34a",
+        duration:0.4
+    });
+
+    tl.call(() => {
+
+        check.style.display = "inline";
+
+        statusText.textContent = "Delivered";
+    });
+
+    tl.fromTo(check,
+        {
+            scale:0
+        },
+        {
+            scale:1.4,
+            duration:0.25,
+            yoyo:true,
+            repeat:1
+        }
+    );
+
+});
+</script>
+
+</body>
+</html>

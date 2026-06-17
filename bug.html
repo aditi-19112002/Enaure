@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shopping Bag Animation</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+<style>
+body{
+    overflow:hidden;
+}
+
+
+#shirt{
+    position:absolute;
+    left:20px;
+    top:50%;
+    transform:translateY(-50%);
+    font-size:30px;
+    opacity:0;
+    pointer-events:none;
+}
+
+
+#bag{
+    position:relative;
+    font-size:40px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+
+#bag.open{
+    transform: scale(1.05) rotate(-5deg);
+}
+
+
+#count{
+    position:absolute;
+    top:-8px;
+    right:-10px;
+}
+</style>
+</head>
+
+<body class="bg-slate-200 flex items-center justify-center min-h-screen">
+
+<button id="btn"
+class="relative bg-black text-white px-8 py-4 rounded-2xl flex items-center gap-4 text-lg font-semibold shadow-2xl overflow-visible">
+
+    
+    <span id="shirt">👕</span>
+
+    <span class="font-bold text-2xl">Add to Bag</span>
+
+    
+    <span id="bag">
+        🛍️
+        <span id="count"
+        class="w-6 h-6 bg-red-500 text-xs rounded-full flex items-center justify-center">
+            0
+        </span>
+    </span>
+
+</button>
+
+<script>5
+const btn = document.getElementById("btn");
+const shirt = document.getElementById("shirt");
+const bag = document.getElementById("bag");
+const count = document.getElementById("count");
+
+let total = 0;
+let animating = false;
+
+btn.addEventListener("click", () => {
+
+    if(animating) return;   
+    animating = true;
+
+    total++;
+
+    gsap.set(shirt,{
+        opacity:1,
+        x:0,
+        y:0,
+        scale:1,
+        rotation:0
+    });
+
+    const tl = gsap.timeline({
+        onComplete: () => {
+            count.textContent = total;
+            animating = false;
+        }
+    });
+
+  
+    tl.to(bag,{
+        scale:1.1,
+        rotate:-8,
+        duration:0.2,
+        ease:"power1.out"
+    });
+
+    
+    tl.to(shirt,{
+        opacity:1,
+        duration:0.1
+    });
+
+   
+    tl.to(shirt,{
+        x:160,
+        y:-10,
+        rotation:360,
+        duration:0.7,
+        ease:"power2.inOut"
+    });
+
+    tl.to(shirt,{
+        y:30,
+        scale:0.2,
+        opacity:0,
+        duration:0.3,
+        ease:"power2.in"
+    });
+
+ 
+    tl.to(bag,{
+        scale:1,
+        rotate:0,
+        duration:0.2,
+        ease:"bounce.out"
+    });
+
+
+    tl.fromTo(count,{
+        scale:1
+    },{
+        scale:1.6,
+        duration:0.15,
+        yoyo:true,
+        repeat:1
+    });
+
+});
+</script>
+
+</body>
+</html>
