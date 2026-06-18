@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Circular Download Progress</title>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#0f172a;
+    font-family:sans-serif;
+}
+
+.download{
+    width:150px;
+    height:150px;
+    border-radius:50%;
+    background:#1e293b;
+    position:relative;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    cursor:pointer;
+}
+
+svg{
+    position:absolute;
+    width:150px;
+    height:150px;
+    transform:rotate(-90deg);
+}
+
+circle{
+    fill:none;
+    stroke-width:8;
+}
+
+.bg{
+    stroke:#334155;
+}
+
+.progress{
+    stroke:#3b82f6;
+    stroke-linecap:round;
+    stroke-dasharray:440;
+    stroke-dashoffset:440;
+}
+
+.value{
+    color:white;
+    font-size:30px;
+    font-weight:bold;
+}
+
+.check{
+    position:absolute;
+    font-size:50px;
+    color:white;
+    opacity:0;
+    scale:0;
+}
+</style>
+</head>
+<body>
+
+<div class="download">
+
+    <svg>
+        <circle class="bg" cx="75" cy="75" r="70"></circle>
+        <circle class="progress" cx="75" cy="75" r="70"></circle>
+    </svg>
+
+    <div class="value">⬇</div>
+    <div class="check">✓</div>
+
+</div>
+
+<script>
+const progress = document.querySelector(".progress");
+const value = document.querySelector(".value");
+const check = document.querySelector(".check");
+
+let downloading = false;
+
+document.querySelector(".download").onclick = ()=>{
+
+if(downloading) return;
+downloading = true;
+
+let obj = {percent:0};
+
+gsap.to(obj,{
+    percent:100,
+    duration:4,
+    ease:"none",
+    onUpdate(){
+        let p = Math.floor(obj.percent);
+        value.innerHTML = p + "%";
+
+        progress.style.strokeDashoffset = 440 - (440*p/100);
+    },
+    onComplete(){
+
+        gsap.to(value,{
+            opacity:0,
+            duration:0.3
+        });
+
+        gsap.to(check,{
+            opacity:1,
+            scale:1,
+            duration:0.5,
+            delay:0.3,
+            ease:"back.out(2)"
+        });
+
+        gsap.to(".download",{
+            background:"#16a34a",
+            duration:0.5
+        });
+
+    }
+});
+
+}
+</script>
+
+</body>
+</html>
