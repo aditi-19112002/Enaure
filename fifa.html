@@ -3,138 +3,137 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Circular Download Progress</title>
+<title>Animated Buttons</title>
 
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
 
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
 body{
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background:#0f172a;
-    font-family:sans-serif;
+background:radial-gradient(circle at top,#1e293b,#020617);
+overflow:hidden;
 }
 
-.download{
-    width:150px;
-    height:150px;
-    border-radius:50%;
-    background:#1e293b;
-    position:relative;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    cursor:pointer;
+.btn{
+transition:.4s;
+position:relative;
+overflow:hidden;
 }
 
-svg{
-    position:absolute;
-    width:150px;
-    height:150px;
-    transform:rotate(-90deg);
+.btn:hover{
+transform:translateY(-6px) scale(1.05);
+box-shadow:0 0 30px rgba(255,255,255,.25);
 }
 
-circle{
-    fill:none;
-    stroke-width:8;
-}
-
-.bg{
-    stroke:#334155;
+.bird{
+position:absolute;
+font-size:26px;
+transition:1.5s linear;
+pointer-events:none;
 }
 
 .progress{
-    stroke:#3b82f6;
-    stroke-linecap:round;
-    stroke-dasharray:440;
-    stroke-dashoffset:440;
-}
-
-.value{
-    color:white;
-    font-size:30px;
-    font-weight:bold;
-}
-
-.check{
-    position:absolute;
-    font-size:50px;
-    color:white;
-    opacity:0;
-    scale:0;
+height:6px;
+width:0%;
+transition:.1s;
 }
 </style>
+
 </head>
-<body>
+<body class="h-screen flex items-center justify-center">
 
-<div class="download">
+<div class="grid md:grid-cols-2 gap-8">
 
-    <svg>
-        <circle class="bg" cx="75" cy="75" r="70"></circle>
-        <circle class="progress" cx="75" cy="75" r="70"></circle>
-    </svg>
+<button id="signup" class="btn w-56 h-16 rounded-full bg-violet-600 text-white text-xl font-bold shadow-xl">
+👤 Sign Up
+</button>
 
-    <div class="value">⬇</div>
-    <div class="check">✓</div>
+<button id="login" class="btn w-56 h-16 rounded-full bg-sky-600 text-white text-xl font-bold shadow-xl">
+🔒 Login
+</button>
+
+<button id="send" class="btn w-56 h-16 rounded-full bg-emerald-600 text-white text-xl font-bold shadow-xl">
+🕊 Send
+</button>
+
+<div class="relative">
+<button id="download" class="btn w-56 h-16 rounded-full bg-amber-500 text-white text-xl font-bold shadow-xl">
+⬇ Download
+</button>
+
+<div id="bar" class="progress absolute bottom-0 left-0 bg-white rounded-full"></div>
+</div>
 
 </div>
 
+<div id="bird" class="bird hidden">🕊</div>
+
 <script>
-const progress = document.querySelector(".progress");
-const value = document.querySelector(".value");
-const check = document.querySelector(".check");
 
-let downloading = false;
 
-document.querySelector(".download").onclick = ()=>{
+signup.onclick=()=>{
+signup.innerHTML="⏳ Creating...";
+setTimeout(()=>{
+signup.classList.replace("bg-violet-600","bg-green-600");
+signup.innerHTML="✅ Created";
+},1200);
+}
 
-if(downloading) return;
-downloading = true;
+// Login
+login.onclick=()=>{
+login.innerHTML="🔄 Checking...";
+setTimeout(()=>{
+login.classList.replace("bg-sky-600","bg-green-600");
+login.innerHTML="🔓 Welcome";
+},1200);
+}
 
-let obj = {percent:0};
 
-gsap.to(obj,{
-    percent:100,
-    duration:4,
-    ease:"none",
-    onUpdate(){
-        let p = Math.floor(obj.percent);
-        value.innerHTML = p + "%";
+send.onclick=()=>{
 
-        progress.style.strokeDashoffset = 440 - (440*p/100);
-    },
-    onComplete(){
+bird.classList.remove("hidden");
 
-        gsap.to(value,{
-            opacity:0,
-            duration:0.3
-        });
+bird.style.left=send.offsetLeft+90+"px";
+bird.style.top=send.offsetTop+10+"px";
 
-        gsap.to(check,{
-            opacity:1,
-            scale:1,
-            duration:0.5,
-            delay:0.3,
-            ease:"back.out(2)"
-        });
+setTimeout(()=>{
+bird.style.transform="translate(500px,-180px) rotate(-20deg)";
+},50);
 
-        gsap.to(".download",{
-            background:"#16a34a",
-            duration:0.5
-        });
-
-    }
-});
+setTimeout(()=>{
+bird.classList.add("hidden");
+bird.style.transform="translate(0,0)";
+send.classList.replace("bg-emerald-600","bg-green-600");
+send.innerHTML="✅ Sent";
+},1700);
 
 }
+
+download.onclick=()=>{
+
+let i=0;
+
+let x=setInterval(()=>{
+
+i++;
+
+download.innerHTML="⬇ "+i+"%";
+
+bar.style.width=i+"%";
+
+if(i==100){
+
+clearInterval(x);
+
+download.classList.replace("bg-amber-500","bg-green-600");
+
+download.innerHTML="✔ Downloaded";
+
+}
+
+},25);
+
+}
+
 </script>
 
 </body>
