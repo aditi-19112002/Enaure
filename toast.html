@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://cdn.tailwindcss.com"></script>
+
+<title>Modern Toast Notification</title>
+</head>
+
+<body class="bg-white flex items-center justify-center min-h-screen">
+
+<div class="flex flex-wrap gap-4">
+
+    <button onclick="toast('success')"
+        class="px-5 py-3 rounded-xl bg-emerald-500 text-white font-semibold hover:scale-105 transition">
+        Success
+    </button>
+
+    <button onclick="toast('error')"
+        class="px-5 py-3 rounded-xl bg-red-500 text-white font-semibold hover:scale-105 transition">
+         Error
+    </button>
+
+    <button onclick="toast('warning')"
+        class="px-5 py-3 rounded-xl bg-amber-400 text-black font-semibold hover:scale-105 transition">
+        Warning
+    </button>
+
+    <button onclick="toast('info')"
+        class="px-5 py-3 rounded-xl bg-sky-500 text-white font-semibold hover:scale-105 transition">
+        Info
+    </button>
+
+</div>
+
+<!-- Toast Container -->
+<div id="toastBox" class="fixed top-6 right-6 space-y-4 z-50"></div>
+
+<script>
+
+const data={
+success:{
+icon:"✔",
+color:"bg-emerald-500",
+title:"Success",
+msg:"Your changes have been saved."
+},
+
+error:{
+icon:"✖",
+color:"bg-red-500",
+title:"Error",
+msg:"Something went wrong."
+},
+
+warning:{
+icon:"⚠",
+color:"bg-amber-400",
+title:"Warning",
+msg:"Storage is almost full."
+},
+
+info:{
+icon:"ℹ",
+color:"bg-sky-500",
+title:"Information",
+msg:"New update available."
+}
+}
+
+function toast(type){
+
+const t=data[type];
+
+const div=document.createElement("div");
+
+div.className=`
+group relative overflow-hidden
+flex items-center gap-4
+w-96
+p-4
+rounded-2xl
+bg-white
+border border-gray-200
+shadow-xl
+translate-x-[420px]
+opacity-0
+transition-all duration-500
+hover:-translate-y-1
+hover:shadow-2xl
+`;
+
+div.innerHTML=`
+
+<div class="${t.color}
+w-12 h-12 rounded-full
+flex items-center justify-center
+text-white text-2xl
+group-hover:rotate-[360deg]
+transition duration-700">
+
+${t.icon}
+
+</div>
+
+<div class="flex-1">
+
+<h3 class="font-bold text-gray-800">
+${t.title}
+</h3>
+
+<p class="text-sm text-gray-500">
+${t.msg}
+</p>
+
+</div>
+
+<button
+onclick="removeToast(this.parentElement)"
+class="text-gray-400 hover:text-red-500 text-xl transition">
+
+×
+
+</button>
+
+<div class="absolute bottom-0 left-0 h-1 ${t.color} animate-[progress_4s_linear_forwards]"></div>
+
+`;
+
+document.getElementById("toastBox").appendChild(div);
+
+setTimeout(()=>{
+div.classList.remove("translate-x-[420px]","opacity-0");
+},50);
+
+setTimeout(()=>{
+removeToast(div);
+},4000);
+
+}
+
+function removeToast(div){
+
+div.classList.add("translate-x-[420px]","opacity-0");
+
+setTimeout(()=>{
+div.remove();
+},500);
+
+}
+
+</script>
+
+<style>
+
+@keyframes progress{
+
+from{
+width:100%;
+}
+
+to{
+width:0%;
+}
+
+}
+
+</style>
+
+</body>
+</html>
