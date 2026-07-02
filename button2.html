@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>White Action UI</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+body{
+background: linear-gradient(135deg,#f8fafc,#e2e8f0);
+overflow:hidden;
+font-family:sans-serif;
+}
+
+/* glass white buttons */
+.btn{
+background: rgba(255,255,255,0.7);
+backdrop-filter: blur(10px);
+border:1px solid rgba(0,0,0,0.08);
+transition:.3s;
+position:relative;
+overflow:hidden;
+color:#0f172a;
+box-shadow:0 10px 25px rgba(0,0,0,0.08);
+}
+
+.btn:hover{
+transform:scale(1.06);
+box-shadow:0 15px 35px rgba(0,0,0,0.15);
+}
+
+/* bird */
+#bird{
+position:absolute;
+font-size:26px;
+transition:1.2s linear;
+pointer-events:none;
+color:#111827;
+}
+
+/* SHARE ICONS */
+.sicon{
+position:absolute;
+width:42px;
+height:42px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+color:white;
+font-size:14px;
+cursor:pointer;
+opacity:0;
+transform:scale(0);
+transition:.5s;
+box-shadow:0 10px 20px rgba(0,0,0,0.15);
+}
+
+#shareMenu .sicon:nth-child(1){ top:-70px; left:0; background:#2563eb;}
+#shareMenu .sicon:nth-child(2){ top:-50px; left:70px; background:#111827;}
+#shareMenu .sicon:nth-child(3){ top:-50px; left:-70px; background:#1d4ed8;}
+
+#shareMenu.active .sicon{
+opacity:1;
+transform:scale(1) rotate(360deg);
+}
+</style>
+
+</head>
+
+<body class="h-screen flex items-center justify-center">
+
+<div class="text-center space-y-6">
+
+<button id="send" class="btn w-56 h-14 rounded-full text-xl font-bold"> Send
+</button>
+
+<button id="submit" class="btn w-56 h-14 rounded-full text-xl font-bold">
+Submit
+</button>
+
+<div class="relative inline-block">
+
+<button id="shareBtn" class="btn w-56 h-14 rounded-full text-xl font-bold">
+Share
+</button>
+
+<div id="shareMenu" class="absolute left-1/2 top-0 -translate-x-1/2">
+<a class="sicon">in</a>
+<a class="sicon">GH</a>
+<a class="sicon">f</a>
+</div>
+
+</div>
+
+<button id="next" class="btn w-56 h-14 rounded-full text-xl font-bold">
+⏭ Next
+</button>
+
+</div>
+
+<div id="bird">🕊</div>
+
+<script>
+
+send.onclick=()=>{
+let b=document.getElementById("bird");
+
+b.style.left=send.offsetLeft+"px";
+b.style.top=send.offsetTop+"px";
+
+setTimeout(()=>{
+b.style.transform="translate(420px,-220px)";
+send.innerHTML="✔ Sent";
+send.classList.add("bg-green-500","text-white");
+},100);
+
+setTimeout(()=>{
+b.style.transform="translate(0,0)";
+},1500);
+}
+
+submit.onclick=()=>{
+submit.innerHTML="🙏 Thanks ✓";
+submit.classList.add("bg-green-500","text-white");
+}
+
+shareBtn.onclick=()=>{
+document.getElementById("shareMenu").classList.toggle("active");
+
+shareBtn.innerHTML="🔗 Sharing...";
+setTimeout(()=>{
+shareBtn.innerHTML="✔ Shared";
+shareBtn.classList.add("bg-green-500","text-white");
+},900);
+}
+
+next.onclick=()=>{
+next.innerHTML="⏳ Loading...";
+next.style.transform="translateX(15px)";
+
+setTimeout(()=>{
+next.innerHTML="✔ Done";
+next.classList.add("bg-green-500","text-white");
+next.style.transform="translateX(0)";
+},900);
+}
+
+</script>
+
+</body>
+</html>
