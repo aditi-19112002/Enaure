@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Hidden Orbit Switch</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
+
+body{
+height:100vh;
+display:grid;
+place-items:center;
+background:#0f172a;
+}
+
+/* wrapper */
+.wrapper{
+position:relative;
+width:220px;
+height:220px;
+display:grid;
+place-items:center;
+}
+
+/* button */
+.btn{
+width:170px;
+height:60px;
+border-radius:50px;
+background:#111827;
+color:#fff;
+font-size:20px;
+font-weight:bold;
+display:grid;
+place-items:center;
+cursor:pointer;
+z-index:2;
+box-shadow:0 0 25px #00e5ff;
+transition:.4s;
+}
+
+/* orbit (hidden by default) */
+.orbit{
+position:absolute;
+width:200px;
+height:200px;
+border-radius:50%;
+opacity:0;
+transform:scale(0);
+transition:.6s;
+}
+
+/* show only on click */
+.wrapper.active .orbit{
+opacity:1;
+transform:scale(1) rotate(360deg);
+}
+
+/* items */
+.item{
+position:absolute;
+top:50%;
+left:50%;
+transform-origin:0 0;
+padding:5px 10px;
+background:#1e293b;
+color:#00e5ff;
+font-weight:bold;
+border-radius:20px;
+font-size:14px;
+box-shadow:0 0 10px #00e5ff55;
+}
+
+/* positions */
+.item:nth-child(1){transform:rotate(0deg) translate(90px);}
+.item:nth-child(2){transform:rotate(72deg) translate(90px);}
+.item:nth-child(3){transform:rotate(144deg) translate(90px);}
+.item:nth-child(4){transform:rotate(216deg) translate(90px);}
+.item:nth-child(5){transform:rotate(288deg) translate(90px);}
+
+/* hide items after animation */
+.wrapper.hide .orbit{
+opacity:0;
+transform:scale(0);
+}
+</style>
+</head>
+
+<body>
+
+<div class="wrapper" id="wrap">
+
+<div class="btn" id="btn">CSS</div>
+
+<div class="orbit">
+<div class="item">CSS</div>
+<div class="item">JavaScript</div>
+<div class="item">PHP</div>
+<div class="item">Laravel</div>
+<div class="item">Tailwind</div>
+</div>
+
+</div>
+
+<script>
+
+const wrap=document.getElementById("wrap");
+const btn=document.getElementById("btn");
+
+let tech=["CSS","JavaScript","PHP","Laravel","Tailwind"];
+let i=0;
+
+btn.onclick=()=>{
+
+
+wrap.classList.add("active");
+
+setTimeout(()=>{
+
+i=(i+1)%tech.length;
+btn.textContent=tech[i];
+
+
+wrap.classList.remove("active");
+wrap.classList.add("hide");
+
+setTimeout(()=>{
+wrap.classList.remove("hide");
+},500);
+
+},800);
+
+};
+
+</script>
+
+</body>
+</html>

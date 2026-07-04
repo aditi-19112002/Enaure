@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Animated Logout</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:#fff;
+}
+
+.logout{
+position:relative;
+width:220px;
+height:70px;
+border:none;
+border-radius:14px;
+background:#2563eb; /* Blue */
+color:#fff;
+font-size:22px;
+font-weight:bold;
+cursor:pointer;
+overflow:hidden;
+transition:.4s;
+box-shadow:0 10px 25px rgba(0,0,0,.15);
+}
+
+.door{
+position:absolute;
+left:0;
+top:0;
+width:50%;
+height:100%;
+background:#1d4ed8;
+transform-origin:left;
+transition:.8s;
+z-index:2;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:28px;
+}
+
+.user{
+position:absolute;
+left:65px;
+top:50%;
+transform:translateY(-50%);
+font-size:26px;
+opacity:0;
+z-index:3;
+}
+
+.text{
+position:relative;
+z-index:1;
+opacity:0;
+transition:.4s;
+}
+
+.logout.active .door{
+transform:perspective(300px) rotateY(-110deg);
+}
+
+.logout.active .user{
+animation:walk 1.8s linear forwards;
+opacity:1;
+}
+
+@keyframes walk{
+0%{left:65px;}
+100%{left:250px;}
+}
+</style>
+</head>
+
+<body>
+
+<button class="logout" id="btn">
+<div class="door">🚪</div>
+<div class="user">🏃</div>
+<span class="text">Logout</span>
+</button>
+
+<script>
+const btn=document.getElementById("btn");
+const text=document.querySelector(".text");
+
+btn.onclick=()=>{
+
+btn.disabled=true;
+btn.classList.add("active");
+
+setTimeout(()=>{
+text.style.opacity=1;
+},700);
+
+
+setTimeout(()=>{
+btn.innerHTML="✅ Logged Out";
+btn.style.background="#16a34a";
+},2200);
+
+}
+</script>
+
+</body>
+</html>
