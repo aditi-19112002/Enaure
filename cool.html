@@ -20,7 +20,7 @@ height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
-background:#111827;
+background:#fff;
 overflow:hidden;
 }
 
@@ -39,10 +39,11 @@ color:#fff;
 cursor:pointer;
 font-size:15px;
 transition:.3s;
+box-shadow:0 8px 18px rgba(0,0,0,.15);
 }
 
 button:hover{
-transform:scale(1.08);
+transform:translateY(-3px) scale(1.05);
 }
 
 #sub{background:#ff0000;}
@@ -63,6 +64,7 @@ font-size:18px;
 display:none;
 z-index:1000;
 animation:pop .3s;
+box-shadow:0 10px 25px rgba(0,0,0,.25);
 }
 
 @keyframes pop{
@@ -81,14 +83,14 @@ position:fixed;
 top:50%;
 left:50%;
 transform:translate(-50%,-50%) scale(0);
-background:#1f2937;
+background:#fff;
 padding:25px;
 border-radius:20px;
 display:flex;
 gap:22px;
 transition:.3s;
 z-index:999;
-box-shadow:0 0 30px rgba(0,0,0,.5);
+box-shadow:0 10px 35px rgba(0,0,0,.2);
 }
 
 .shareBox.show{
@@ -113,7 +115,7 @@ background:linear-gradient(45deg,#f9ce34,#ee2a7b,#6228d7);
 -webkit-text-fill-color:transparent;
 }
 .fa-telegram{color:#229ED9;}
-.fa-x-twitter{color:#fff;}
+.fa-x-twitter{color:#000;}
 </style>
 
 </head>
@@ -154,13 +156,16 @@ Comment
 </div>
 
 <script>
-
 const toast=document.getElementById("toast");
+const shareBox=document.getElementById("shareBox");
+const sub=document.getElementById("sub");
+const like=document.getElementById("like");
+const share=document.getElementById("share");
+const comment=document.getElementById("comment");
 
 function show(msg){
 toast.innerHTML=msg;
 toast.style.display="block";
-
 setTimeout(()=>{
 toast.style.display="none";
 },1800);
@@ -196,6 +201,12 @@ show("💬 Thanks for your Comment!");
 }
 }
 
+// Close popup when clicking outside
+document.addEventListener("click",(e)=>{
+if(!shareBox.contains(e.target) && e.target!==share){
+shareBox.classList.remove("show");
+}
+});
 </script>
 
 </body>
