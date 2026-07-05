@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>YouTube Action Buttons</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:#111827;
+overflow:hidden;
+}
+
+.box{
+display:flex;
+gap:15px;
+flex-wrap:wrap;
+justify-content:center;
+}
+
+button{
+padding:14px 22px;
+border:none;
+border-radius:40px;
+color:#fff;
+cursor:pointer;
+font-size:15px;
+transition:.3s;
+}
+
+button:hover{
+transform:scale(1.08);
+}
+
+#sub{background:#ff0000;}
+#like{background:#2563eb;}
+#share{background:#16a34a;}
+#comment{background:#f59e0b;}
+
+.toast{
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+background:#22c55e;
+color:#fff;
+padding:15px 28px;
+border-radius:40px;
+font-size:18px;
+display:none;
+z-index:1000;
+animation:pop .3s;
+}
+
+@keyframes pop{
+from{
+opacity:0;
+transform:translate(-50%,-50%) scale(.5);
+}
+to{
+opacity:1;
+transform:translate(-50%,-50%) scale(1);
+}
+}
+
+.shareBox{
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%) scale(0);
+background:#1f2937;
+padding:25px;
+border-radius:20px;
+display:flex;
+gap:22px;
+transition:.3s;
+z-index:999;
+box-shadow:0 0 30px rgba(0,0,0,.5);
+}
+
+.shareBox.show{
+transform:translate(-50%,-50%) scale(1);
+}
+
+.shareBox i{
+font-size:40px;
+cursor:pointer;
+transition:.3s;
+}
+
+.shareBox i:hover{
+transform:scale(1.25);
+}
+
+.fa-whatsapp{color:#25D366;}
+.fa-facebook{color:#1877F2;}
+.fa-instagram{
+background:linear-gradient(45deg,#f9ce34,#ee2a7b,#6228d7);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+.fa-telegram{color:#229ED9;}
+.fa-x-twitter{color:#fff;}
+</style>
+
+</head>
+<body>
+
+<div class="box">
+
+<button id="sub">
+<i class="fa-brands fa-youtube"></i>
+Subscribe
+</button>
+
+<button id="like">
+<i class="fa-solid fa-heart"></i>
+Like
+</button>
+
+<button id="share">
+<i class="fa-solid fa-share-nodes"></i>
+Share
+</button>
+
+<button id="comment">
+<i class="fa-solid fa-comment"></i>
+Comment
+</button>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<div class="shareBox" id="shareBox">
+<i class="fab fa-whatsapp"></i>
+<i class="fab fa-facebook"></i>
+<i class="fab fa-instagram"></i>
+<i class="fab fa-telegram"></i>
+<i class="fab fa-x-twitter"></i>
+</div>
+
+<script>
+
+const toast=document.getElementById("toast");
+
+function show(msg){
+toast.innerHTML=msg;
+toast.style.display="block";
+
+setTimeout(()=>{
+toast.style.display="none";
+},1800);
+}
+
+sub.onclick=()=>{
+sub.innerHTML="✔ Subscribed";
+sub.style.background="#22c55e";
+show("🎉 Thanks for Subscribing!");
+}
+
+like.onclick=()=>{
+like.innerHTML="❤️ Liked";
+like.style.background="#ec4899";
+show("❤️ Thanks for Liking!");
+}
+
+share.onclick=()=>{
+shareBox.classList.add("show");
+}
+
+document.querySelectorAll(".shareBox i").forEach(icon=>{
+icon.onclick=()=>{
+shareBox.classList.remove("show");
+show("📤 Shared Successfully!");
+}
+});
+
+comment.onclick=()=>{
+let c=prompt("Write your comment");
+if(c){
+show("💬 Thanks for your Comment!");
+}
+}
+
+</script>
+
+</body>
+</html>
