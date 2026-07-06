@@ -2,211 +2,99 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>YouTube Action Buttons</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>9 Dots Menu</title>
 
+<script src="https://cdn.tailwindcss.com"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-
-<style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial,sans-serif;
-}
-
-body{
-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
-background:#fff;
-overflow:hidden;
-}
-
-.box{
-display:flex;
-gap:15px;
-flex-wrap:wrap;
-justify-content:center;
-}
-
-button{
-padding:14px 22px;
-border:none;
-border-radius:40px;
-color:#fff;
-cursor:pointer;
-font-size:15px;
-transition:.3s;
-box-shadow:0 8px 18px rgba(0,0,0,.15);
-}
-
-button:hover{
-transform:translateY(-3px) scale(1.05);
-}
-
-#sub{background:#ff0000;}
-#like{background:#2563eb;}
-#share{background:#16a34a;}
-#comment{background:#f59e0b;}
-
-.toast{
-position:fixed;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%);
-background:#22c55e;
-color:#fff;
-padding:15px 28px;
-border-radius:40px;
-font-size:18px;
-display:none;
-z-index:1000;
-animation:pop .3s;
-box-shadow:0 10px 25px rgba(0,0,0,.25);
-}
-
-@keyframes pop{
-from{
-opacity:0;
-transform:translate(-50%,-50%) scale(.5);
-}
-to{
-opacity:1;
-transform:translate(-50%,-50%) scale(1);
-}
-}
-
-.shareBox{
-position:fixed;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%) scale(0);
-background:#fff;
-padding:25px;
-border-radius:20px;
-display:flex;
-gap:22px;
-transition:.3s;
-z-index:999;
-box-shadow:0 10px 35px rgba(0,0,0,.2);
-}
-
-.shareBox.show{
-transform:translate(-50%,-50%) scale(1);
-}
-
-.shareBox i{
-font-size:40px;
-cursor:pointer;
-transition:.3s;
-}
-
-.shareBox i:hover{
-transform:scale(1.25);
-}
-
-.fa-whatsapp{color:#25D366;}
-.fa-facebook{color:#1877F2;}
-.fa-instagram{
-background:linear-gradient(45deg,#f9ce34,#ee2a7b,#6228d7);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-}
-.fa-telegram{color:#229ED9;}
-.fa-x-twitter{color:#000;}
-</style>
-
 </head>
-<body>
 
-<div class="box">
+<body class="h-screen grid place-items-center bg-white">
 
-<button id="sub">
-<i class="fa-brands fa-youtube"></i>
-Subscribe
-</button>
-
-<button id="like">
-<i class="fa-solid fa-heart"></i>
-Like
-</button>
-
-<button id="share">
-<i class="fa-solid fa-share-nodes"></i>
-Share
-</button>
-
-<button id="comment">
-<i class="fa-solid fa-comment"></i>
-Comment
-</button>
-
-</div>
-
-<div class="toast" id="toast"></div>
-
-<div class="shareBox" id="shareBox">
-<i class="fab fa-whatsapp"></i>
-<i class="fab fa-facebook"></i>
-<i class="fab fa-instagram"></i>
-<i class="fab fa-telegram"></i>
-<i class="fab fa-x-twitter"></i>
+<div id="box"
+class="grid grid-cols-3 gap-3 bg-gray-100 p-5 rounded-2xl shadow-xl cursor-pointer transition-all duration-300">
 </div>
 
 <script>
-const toast=document.getElementById("toast");
-const shareBox=document.getElementById("shareBox");
-const sub=document.getElementById("sub");
-const like=document.getElementById("like");
-const share=document.getElementById("share");
-const comment=document.getElementById("comment");
+const box=document.getElementById("box");
 
-function show(msg){
-toast.innerHTML=msg;
-toast.style.display="block";
+const icons=[
+"house",
+"user",
+"phone",
+"gear",
+"xmark",
+"heart",
+"image",
+"comment",
+"bell"
+];
+
+function dots(){
+box.innerHTML="";
+
+for(let i=0;i<9;i++){
+box.innerHTML+=`
+<div class="w-3 h-3 bg-slate-800 rounded-full transition-all duration-300 hover:scale-150"></div>`;
+}
+
+box.onclick=openMenu;
+}
+
+function openMenu(){
+
+box.innerHTML="";
+
+icons.forEach((icon,i)=>{
+
+box.innerHTML+=`
+<div class="icon scale-0 opacity-0 w-11 h-11 rounded-xl bg-white border border-gray-200 text-slate-700 shadow-md flex items-center justify-center cursor-pointer transition-all duration-300 hover:bg-blue-500 hover:text-white hover:scale-110">
+<i class="fa-solid fa-${icon}"></i>
+</div>`;
+
+});
+
+document.querySelectorAll(".icon").forEach((item,index)=>{
+
 setTimeout(()=>{
-toast.style.display="none";
-},1800);
+item.classList.remove("scale-0","opacity-0");
+},index*70);
+
+item.onclick=(e)=>{
+
+e.stopPropagation();
+
+if(index===4){
+
+document.querySelectorAll(".icon").forEach((el,j)=>{
+
+setTimeout(()=>{
+el.classList.add("scale-0","opacity-0");
+
+if(j===8){
+setTimeout(dots,250);
 }
 
-sub.onclick=()=>{
-sub.innerHTML="✔ Subscribed";
-sub.style.background="#22c55e";
-show("🎉 Thanks for Subscribing!");
-}
+},j*50);
 
-like.onclick=()=>{
-like.innerHTML="❤️ Liked";
-like.style.background="#ec4899";
-show("❤️ Thanks for Liking!");
-}
-
-share.onclick=()=>{
-shareBox.classList.add("show");
-}
-
-document.querySelectorAll(".shareBox i").forEach(icon=>{
-icon.onclick=()=>{
-shareBox.classList.remove("show");
-show("📤 Shared Successfully!");
-}
 });
 
-comment.onclick=()=>{
-let c=prompt("Write your comment");
-if(c){
-show("💬 Thanks for your Comment!");
-}
+}else{
+
+item.classList.toggle("bg-blue-500");
+item.classList.toggle("text-white");
+item.classList.toggle("border-blue-500");
+
 }
 
-// Close popup when clicking outside
-document.addEventListener("click",(e)=>{
-if(!shareBox.contains(e.target) && e.target!==share){
-shareBox.classList.remove("show");
-}
+};
+
 });
+
+}
+
+dots();
+
 </script>
 
 </body>
