@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>25 Tailwind Buttons</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-white min-h-screen flex items-center justify-center p-8">
+
+<div class="grid grid-cols-2 md:grid-cols-5 gap-5 max-w-6xl">
+
+<button class="px-5 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-500 transition">Primary</button>
+
+<button class="px-5 py-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-xl hover:scale-105 transition">Gradient</button>
+
+
+<button class="px-5 py-3 bg-green-500 text-white rounded-full hover:shadow-lg hover:shadow-green-500/50 transition">Success</button>
+
+<button class="px-5 py-3 bg-red-500 text-white rounded-lg hover:-translate-y-1 transition">Danger</button>
+
+<button class="px-5 py-3 bg-yellow-400 text-black rounded-xl hover:rotate-2 transition">Warning</button>
+
+<button class="px-5 py-3 bg-slate-800 text-white rounded-xl hover:bg-slate-700 transition">Dark</button>
+
+<button id="outline" class="px-5 py-3 border-2 border-cyan-500 text-cyan-500 rounded-xl transition-all">
+Outline
+</button>
+
+<button id="like" class="px-5 py-3 bg-pink-400 text-white rounded-xl transition-all">
+❤️ Like <span>0</span>
+</button>
+
+<button id="light" class="px-5 py-3 bg-white border rounded-xl transition-all">
+💡 Light
+</button>
+
+<button id="invert" class="px-5 py-3 bg-white border rounded-full transition-all">
+Invert
+</button>
+
+<button class="px-5 py-3 bg-indigo-600 text-white rounded-xl hover:ring-4 hover:ring-indigo-400 transition">Ring</button>
+
+<button class="px-5 py-3 bg-cyan-500 text-white rounded-xl hover:shadow-xl hover:shadow-cyan-500/60 transition">Glow</button>
+
+<button class="px-5 py-3 border-2 border-black text-black rounded-xl hover:border-pink-500 hover:text-pink-500 transition">Border</button>
+
+<button class="px-5 py-3 bg-orange-500 text-white rounded-xl active:scale-90 transition">Press</button>
+
+<button class="px-5 py-3 bg-violet-600 text-white rounded-xl hover:tracking-widest transition-all">Spacing</button>
+
+<button class="px-5 py-3 bg-emerald-500 text-white rounded-xl hover:rounded-full transition-all">Morph</button>
+
+<button class="px-5 py-3 bg-sky-500 text-white rounded-xl hover:-translate-y-2 transition">Float</button>
+
+<button class="px-5 py-3 bg-rose-500 text-white rounded-xl hover:scale-110 transition">Zoom</button>
+
+<button class="px-5 py-3 bg-lime-500 text-black rounded-xl hover:brightness-125 transition">Bright</button>
+
+<button class="px-5 py-3 bg-fuchsia-600 text-white rounded-xl hover:opacity-80 transition">Fade</button>
+
+<button class="px-5 py-3 bg-teal-500 text-white rounded-xl hover:rotate-3 transition">Tilt</button>
+
+<button class="px-5 py-3 bg-amber-500 text-black rounded-xl hover:shadow-[0_0_30px_#f59e0b] transition duration-300">Shadow</button>
+
+<button class="px-5 py-3 bg-gray-700 text-white rounded-xl hover:scale-x-110 transition">Stretch</button>
+
+<button class="px-5 py-3 bg-purple-700 text-white rounded-xl hover:translate-x-2 transition">Slide</button>
+
+<button class="px-5 py-3 bg-cyan-600 text-white rounded-xl hover:skew-x-6 transition">Skew</button>
+
+
+
+</div>
+<script>
+
+outline.onclick=()=>{
+outline.classList.toggle("bg-cyan-500");
+outline.classList.toggle("text-white");
+outline.innerText=outline.innerText=="Outline"?"✔ Done":"Outline";
+}
+
+
+let c=0;
+like.onclick=()=>{
+like.querySelector("span").innerText=++c;
+like.classList.add("scale-125");
+setTimeout(()=>like.classList.remove("scale-125"),200);
+}
+
+
+light.onclick=()=>{
+document.body.classList.toggle("bg-black");
+document.body.classList.toggle("bg-white");
+light.innerText=document.body.classList.contains("bg-black")?"🌙 Dark":"💡 Light";
+}
+
+invert.onclick=()=>{
+invert.classList.toggle("rotate-180");
+invert.classList.toggle("bg-black");
+invert.classList.toggle("text-white");
+}
+
+</script>
+</body>
+</html>
