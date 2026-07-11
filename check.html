@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+<title>Lock OTP Verify</title>
+</head>
+
+<body class="bg-slate-950 h-screen grid place-items-center">
+
+<div class="bg-slate-800 p-8 rounded-3xl w-80 shadow-2xl text-center">
+
+<!-- Lock -->
+<div id="lock"
+class="text-6xl text-yellow-400 mb-6 transition duration-500">
+<i class="fa-solid fa-lock"></i>
+</div>
+
+
+<h2 id="title"
+class="text-white text-2xl font-bold mb-6">
+Verify OTP
+</h2>
+
+
+<!-- OTP -->
+<div class="flex justify-between mb-6">
+
+<input maxlength="1" class="otp">
+<input maxlength="1" class="otp">
+<input maxlength="1" class="otp">
+<input maxlength="1" class="otp">
+<input maxlength="1" class="otp">
+<input maxlength="1" class="otp">
+
+</div>
+
+
+<button id="verify"
+class="w-full py-3 rounded-xl bg-blue-500 text-white font-semibold transition">
+Verify
+</button>
+
+
+</div>
+
+
+<style>
+
+.otp{
+width:35px;
+height:45px;
+border-radius:10px;
+background:#334155;
+color:white;
+text-align:center;
+font-size:20px;
+outline:none;
+}
+
+.otp:focus{
+box-shadow:0 0 15px #38bdf8;
+}
+
+.shake{
+animation:shake .4s;
+}
+
+@keyframes shake{
+25%{transform:rotate(10deg)}
+50%{transform:rotate(-10deg)}
+75%{transform:rotate(10deg)}
+}
+
+</style>
+
+
+<script>
+
+const inputs=document.querySelectorAll(".otp");
+const verify=document.getElementById("verify");
+const lock=document.getElementById("lock");
+const title=document.getElementById("title");
+
+
+inputs.forEach((input,index)=>{
+
+input.oninput=()=>{
+
+if(input.value && index<5)
+inputs[index+1].focus();
+
+}
+
+});
+
+
+verify.onclick=()=>{
+
+let code="";
+
+inputs.forEach(i=>code+=i.value);
+
+
+if(code.length<6){
+
+lock.classList.add("shake");
+
+setTimeout(()=>{
+lock.classList.remove("shake");
+},400);
+
+title.innerHTML="Enter 6 Digit OTP";
+
+return;
+
+}
+
+
+verify.innerHTML="⏳ Unlocking...";
+
+
+setTimeout(()=>{
+
+
+lock.innerHTML=
+`<i class="fa-solid fa-lock-open"></i>`;
+
+
+lock.className=
+"text-6xl text-green-400 mb-6 transition duration-500";
+
+
+title.innerHTML="✔ Access Granted";
+
+
+verify.innerHTML="Unlocked";
+
+
+verify.className=
+"w-full py-3 rounded-xl bg-green-500 text-white font-semibold";
+
+
+},1800);
+
+
+}
+
+
+</script>
+
+</body>
+</html>

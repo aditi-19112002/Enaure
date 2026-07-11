@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>Morphing Signup Button</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+</head>
+
+<body class="bg-white h-screen grid place-items-center">
+
+<div id="box"
+class="w-80 h-14 bg-blue-500 rounded-full shadow-xl flex items-center px-5 transition-all duration-300">
+
+<i id="icon" class="fa-solid fa-user-plus text-white text-lg"></i>
+
+<input id="input"
+class="hidden flex-1 ml-3 bg-transparent outline-none text-white placeholder-white"
+placeholder="Name">
+
+<button id="btn"
+class="flex-1 text-white font-semibold">
+Sign Up
+</button>
+
+<i id="next"
+class="fa-solid fa-arrow-right hidden text-white text-lg cursor-pointer hover:translate-x-1 transition"></i>
+
+</div>
+
+<script>
+
+const btn=document.getElementById("btn");
+const input=document.getElementById("input");
+const icon=document.getElementById("icon");
+const next=document.getElementById("next");
+const box=document.getElementById("box");
+
+let step=0;
+
+btn.onclick=()=>{
+
+btn.classList.add("hidden");
+input.classList.remove("hidden");
+next.classList.remove("hidden");
+
+icon.className="fa-solid fa-user text-white text-lg";
+
+input.focus();
+
+}
+
+next.onclick=go;
+
+input.onkeydown=e=>{
+if(e.key==="Enter") go();
+}
+
+function go(){
+
+if(!input.value.trim()) return;
+
+if(step===0){
+
+input.value="";
+input.placeholder="Email";
+input.type="email";
+
+icon.className="fa-solid fa-envelope text-white text-lg";
+
+step++;
+
+}
+
+else if(step===1){
+
+input.value="";
+input.placeholder="Password";
+input.type="password";
+
+icon.className="fa-solid fa-lock text-white text-lg";
+
+step++;
+
+}
+
+else{
+
+next.classList.add("hidden");
+input.classList.add("hidden");
+
+icon.className="fa-solid fa-spinner fa-spin text-white text-lg";
+
+setTimeout(()=>{
+
+box.className="w-80 h-14 bg-green-500 rounded-full shadow-xl flex items-center justify-center gap-2 text-white font-bold";
+
+box.innerHTML=`
+<i class="fa-solid fa-circle-check text-xl"></i>
+<span>Account Created</span>
+`;
+
+},1500);
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
