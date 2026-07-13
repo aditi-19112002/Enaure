@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Coffee Landing Page</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+</head>
+
+
+<body class="bg-amber-50">
+
+
+<!-- HEADER -->
+
+<header class="flex justify-between items-center px-8 py-5 bg-white shadow">
+
+
+<h1 class="text-3xl font-bold text-amber-700">
+☕ Coffee House
+</h1>
+
+
+<div id="box"
+class="w-60 h-12 bg-amber-700 rounded-full flex items-center px-4">
+
+
+<i id="icon" 
+class="fa-solid fa-user text-white"></i>
+
+
+<input id="name"
+class="hidden ml-3 flex-1 bg-transparent outline-none text-white placeholder-white"
+placeholder="Your Name">
+
+
+<button id="login"
+class="text-white flex-1">
+Login
+</button>
+
+
+</div>
+
+
+</header>
+
+
+
+<!-- HERO -->
+
+<section class="grid md:grid-cols-2 gap-10 p-10 items-center">
+
+
+<div>
+
+
+<h1 class="text-6xl font-bold text-amber-800">
+
+Fresh Coffee
+For Your Mood ☕
+
+</h1>
+
+
+<p class="mt-5 text-gray-600 text-lg">
+
+Enjoy premium coffee made with love.
+Fresh beans, amazing taste and relaxing moments.
+
+</p>
+
+
+<button
+class="mt-7 bg-amber-700 text-white px-8 py-3 rounded-full hover:scale-105 transition">
+
+Order Now
+
+</button>
+
+
+</div>
+
+
+
+<img
+src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085"
+class="rounded-3xl shadow-xl hover:scale-105 duration-500">
+
+
+</section>
+
+
+
+<!-- MENU -->
+
+
+<section class="p-10">
+
+
+<h2 class="text-4xl font-bold text-center text-amber-800">
+
+Popular Coffee
+
+</h2>
+
+
+
+<div class="grid md:grid-cols-3 gap-6 mt-10">
+
+
+
+<div class="bg-white rounded-3xl shadow p-5">
+
+<img
+src="https://images.unsplash.com/photo-1509042239860-f550ce710b93"
+class="rounded-xl">
+
+<h3 class="text-xl font-bold mt-4">
+Cappuccino ☕
+</h3>
+
+<p class="text-gray-500">
+Creamy & delicious
+</p>
+
+</div>
+
+
+
+
+<div class="bg-white rounded-3xl shadow p-5">
+
+<img
+src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd"
+class="rounded-xl">
+
+<h3 class="text-xl font-bold mt-4">
+Espresso ☕
+</h3>
+
+<p class="text-gray-500">
+Strong coffee taste
+</p>
+
+</div>
+
+
+
+
+<div class="bg-white rounded-3xl shadow p-5">
+
+<img
+src="https://images.unsplash.com/photo-1541167760496-1628856ab772"
+class="rounded-xl">
+
+<h3 class="text-xl font-bold mt-4">
+Latte ☕
+</h3>
+
+<p class="text-gray-500">
+Smooth & tasty
+</p>
+
+</div>
+
+
+
+</div>
+
+</section>
+
+
+
+<script>
+
+
+let login=document.getElementById("login");
+let name=document.getElementById("name");
+let box=document.getElementById("box");
+
+
+
+login.onclick=()=>{
+
+login.classList.add("hidden");
+
+name.classList.remove("hidden");
+
+name.focus();
+
+}
+
+
+
+
+name.onkeydown=(e)=>{
+
+
+if(e.key=="Enter" && name.value){
+
+
+let user=name.value;
+
+
+box.className=
+"flex items-center gap-3 bg-white shadow px-4 py-2 rounded-full";
+
+
+
+box.innerHTML=`
+
+<img 
+src="https://ui-avatars.com/api/?name=${user}&background=92400e&color=fff"
+class="w-10 h-10 rounded-full">
+
+
+<div>
+
+<p class="text-xs text-gray-400">
+Welcome
+</p>
+
+
+<b class="text-amber-700">
+Hi, ${user} 👋
+</b>
+
+
+</div>
+
+`;
+
+}
+
+}
+
+
+</script>
+
+
+</body>
+</html>
