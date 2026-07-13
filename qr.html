@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Age Calculator</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+body{
+    background:#f1f5f9;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+.card{
+    width:420px;
+    background:#fff;
+    border-radius:25px;
+    padding:30px;
+    box-shadow:0 20px 45px rgba(0,0,0,.12);
+}
+
+input[type="date"]{
+    transition:.3s;
+}
+
+input[type="date"]:focus{
+    transform:scale(1.02);
+    box-shadow:0 0 0 4px rgba(59,130,246,.15);
+}
+
+button{
+    transition:.3s;
+}
+
+button:hover{
+    transform:translateY(-3px);
+}
+
+.result-card{
+    transition:.3s;
+}
+
+.result-card:hover{
+    transform:translateY(-8px) scale(1.05);
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+
+    <h1 class="text-4xl font-bold text-center text-slate-800">
+         Age Calculator
+    </h1>
+
+    <p class="text-center text-gray-500 mt-2">
+        Enter your birth date
+    </p>
+
+    <input
+    id="dob"
+    type="date"
+    class="w-full mt-8 p-4 border rounded-xl outline-none border-slate-300">
+
+    <button
+    onclick="calculateAge()"
+    class="w-full mt-5 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 rounded-xl">
+        Calculate Age
+    </button>
+
+    <div id="result" class="mt-8"></div>
+
+</div>
+
+<script>
+
+function calculateAge(){
+
+let dob=document.getElementById("dob").value;
+
+if(dob==""){
+    alert("Please select your birth date");
+    return;
+}
+
+let birth=new Date(dob);
+let today=new Date();
+
+let years=today.getFullYear()-birth.getFullYear();
+let months=today.getMonth()-birth.getMonth();
+let days=today.getDate()-birth.getDate();
+
+if(days<0){
+    months--;
+    let lastMonth=new Date(today.getFullYear(),today.getMonth(),0);
+    days+=lastMonth.getDate();
+}
+
+if(months<0){
+    years--;
+    months+=12;
+}
+
+document.getElementById("result").innerHTML=`
+
+<div class="grid grid-cols-3 gap-4">
+
+<div class="result-card bg-blue-50 rounded-2xl p-5 text-center shadow">
+
+<div class="text-4xl font-bold text-blue-600">
+${years}
+</div>
+
+<div class="text-gray-600 mt-2">
+Years
+</div>
+
+</div>
+
+<div class="result-card bg-pink-50 rounded-2xl p-5 text-center shadow">
+
+<div class="text-4xl font-bold text-pink-600">
+${months}
+</div>
+
+<div class="text-gray-600 mt-2">
+Months
+</div>
+
+</div>
+
+<div class="result-card bg-green-50 rounded-2xl p-5 text-center shadow">
+
+<div class="text-4xl font-bold text-green-600">
+${days}
+</div>
+
+<div class="text-gray-600 mt-2">
+Days
+</div>
+
+</div>
+
+</div>
+
+`;
+
+}
+
+</script>
+
+</body>
+</html>
