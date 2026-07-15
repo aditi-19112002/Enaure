@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://cdn.tailwindcss.com"></script>
+<title>Gallery</title>
+<style>
+body{background:#0f172a}
+img{cursor:pointer;transition:.3s}
+img:hover{transform:scale(1.05)}
+#preview{display:none}
+.show{display:flex!important}
+</style>
+</head>
+
+<body class="text-white p-6">
+
+<h1 class="text-4xl font-bold text-center mb-8">
+Animated Gallery
+</h1>
+
+<div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+
+<img src="https://picsum.photos/id/1015/400/300" onclick="openImg(this)" class="rounded-xl">
+
+<img src="https://picsum.photos/id/1025/400/300" onclick="openImg(this)" class="rounded-xl">
+
+<img src="https://picsum.photos/id/1035/400/300" onclick="openImg(this)" class="rounded-xl">
+
+</div>
+
+<div id="preview"
+class="fixed inset-0 bg-black/90 justify-center items-center flex-col">
+
+<img id="big"
+class="w-96 rounded-xl mb-6">
+
+<button
+onclick="downloadImg()"
+id="btn"
+class="bg-cyan-500 px-6 py-3 rounded-full font-bold">
+
+⬇ Download
+
+</button>
+
+<button
+onclick="closeImg()"
+class="mt-4 bg-red-500 px-6 py-3 rounded-full rounded-full">
+
+Close
+
+</button>
+
+</div>
+
+<script>
+
+const big=document.getElementById("big");
+
+function openImg(img){
+
+big.src=img.src;
+
+preview.classList.add("show");
+
+}
+
+function closeImg(){
+
+preview.classList.remove("show");
+
+}
+
+function downloadImg(){
+
+const btn=document.getElementById("btn");
+
+btn.innerHTML="⬇ Downloading...";
+
+const a=document.createElement("a");
+
+a.href=big.src;
+
+a.download="image.jpg";
+
+a.click();
+
+setTimeout(()=>{
+
+btn.innerHTML="✅ Saved to Gallery";
+
+btn.className="bg-green-500 px-6 py-3 rounded-full font-bold";
+
+},1000);
+
+setTimeout(()=>{
+
+btn.innerHTML="⬇ Download";
+
+btn.className="bg-cyan-500 px-6 py-3 rounded-full font-bold";
+
+},2500);
+
+}
+
+</script>
+
+</body>
+</html>
