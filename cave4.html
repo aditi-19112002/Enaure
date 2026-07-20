@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>T-Shirt Order Button</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: white;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .order-button {
+            position: relative;
+            width: 320px;
+            height: 80px;
+            background: blue;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 22px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            overflow: hidden;
+            transition: all 0.4s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            z-index: 10;
+        }
+
+        .order-button:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+        }
+
+        /* T-shirt Icon */
+        .tshirt {
+            width: 45px;
+            height: 38px;
+            background: white;
+            position: relative;
+            border-radius: 6px 6px 2px 2px;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+        }
+        .tshirt::before {
+            content: '';
+            position: absolute;
+            top: -12px;
+            left: 12px;
+            width: 21px;
+            height: 18px;
+            background: white;
+            border-radius: 50% 50% 0 0;
+        }
+
+        /* Flying Animation Container */
+        .animation-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0;
+        }
+
+        .flying-tshirt {
+            position: absolute;
+            font-size: 40px;
+            left: 60px;
+            top: 20px;
+            transition: all 1.2s cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+
+        .package {
+            position: absolute;
+            font-size: 42px;
+            right: 60px;
+            top: 18px;
+            transition: all 0.6s ease;
+        }
+
+        .sparkles {
+            position: absolute;
+            font-size: 28px;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Ordered State */
+        .ordered {
+            background: #2ed573 !important;
+        }
+    </style>
+</head>
+<body>
+
+    <button class="order-button" id="btn">
+        <span class="tshirt">👕</span>
+        <span id="text">Shop Now</span>
+        <span class="animation-container" id="anim"></span>
+    </button>
+
+    <script>
+        const btn = document.getElementById('btn');
+        const text = document.getElementById('text');
+        const animContainer = document.getElementById('anim');
+
+        btn.addEventListener('click', () => {
+            if (btn.classList.contains('ordered')) return;
+
+           
+            btn.style.pointerEvents = 'none';
+
+          
+            animContainer.innerHTML = `
+                <span class="flying-tshirt" id="fly">👕</span>
+                <span class="package" id="pkg">📦</span>
+            `;
+
+            const flying = document.getElementById('fly');
+            const pkg = document.getElementById('pkg');
+
+            animContainer.style.opacity = '1';
+
+           
+            setTimeout(() => {
+                flying.style.transform = 'translateX(180px) scale(0.7)';
+                flying.style.opacity = '0.9';
+            }, 100);
+
+            // Package receives t-shirt
+            setTimeout(() => {
+                pkg.style.transform = 'scale(1.15)';
+                pkg.textContent = '📪';
+            }, 900);
+
+            // Sparkles
+            setTimeout(() => {
+                animContainer.innerHTML += `
+                    <span class="sparkles" style="left: 40%; top: 20%;">✨</span>
+                    <span class="sparkles" style="left: 55%; top: 35%; animation-delay: 0.2s;">✨</span>
+                    <span class="sparkles" style="left: 65%; top: 15%; animation-delay: 0.4s;">💫</span>
+                `;
+            }, 1100);
+
+            // Final state
+            setTimeout(() => {
+                btn.classList.add('ordered');
+                text.innerHTML = '✅ Ordered';
+                animContainer.style.opacity = '0';
+                
+                // Reset for demo (optional)
+                setTimeout(() => {
+                    if (confirm("Reset button?")) {
+                        location.reload();
+                    }
+                }, 2500);
+            }, 1600);
+        });
+    </script>
+</body>
+</html>
