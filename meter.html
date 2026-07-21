@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Glass Thermometer</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Poppins,sans-serif;
+}
+
+body{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background: #ffffff;           /* White Background */
+transition:.5s;
+}
+
+.wrapper{
+display:flex;
+align-items:center;
+gap:80px;
+}
+
+.thermometer{
+position:relative;
+width:120px;
+height:500px;
+cursor: grab;
+}
+
+.thermometer:active{
+cursor: grabbing;
+}
+
+.tube{
+position:absolute;
+left:50%;
+transform:translateX(-50%);
+width:42px;
+height:380px;
+border-radius:40px;
+overflow:hidden;
+background:rgba(0,0,0,.06);
+border:3px solid #ddd;
+box-shadow:
+inset 0 0 15px rgba(0,0,0,.1),
+0 0 30px rgba(0,0,0,.08);
+}
+
+.tube::before{
+content:"";
+position:absolute;
+left:5px;
+top:10px;
+width:8px;
+height:92%;
+border-radius:20px;
+background:rgba(255,255,255,.6);
+}
+
+.mercury{
+position:absolute;
+left:6px;
+bottom:0;
+width:24px;
+border-radius:30px;
+background:linear-gradient(to top,#00c6ff,#8be9ff);
+transition:.1s linear;
+box-shadow:0 0 30px cyan;
+}
+
+.bubble{
+position:absolute;
+width:8px;
+height:8px;
+border-radius:50%;
+background:#fff;
+opacity:.8;
+animation:float 4s linear infinite;
+}
+
+.bubble:nth-child(1){left:8px;}
+.bubble:nth-child(2){left:14px;animation-delay:1s;}
+.bubble:nth-child(3){left:10px;animation-delay:2s;}
+
+@keyframes float{
+0%{bottom:-10px;}
+100%{bottom:390px;}
+}
+
+.bulb{
+position:absolute;
+bottom:0;
+left:50%;
+transform:translateX(-50%);
+width:100px;
+height:100px;
+border-radius:50%;
+background:rgba(255,255,255,.9);
+border:3px solid #ddd;
+}
+
+.bulb::before{
+content:"";
+position:absolute;
+inset:12px;
+border-radius:50%;
+background:radial-gradient(circle,#8be9ff,#00c6ff);
+}
+
+.scale{
+position:absolute;
+right:-45px;
+top:0;
+height:380px;
+display:flex;
+flex-direction:column;
+justify-content:space-between;
+color:#222;
+font-size:14px;
+font-weight:600;
+}
+
+.display{
+text-align:center;
+color:#222;
+}
+
+#value{
+font-size:80px;
+font-weight:bold;
+transition:.3s;
+}
+
+.status{
+margin-top:15px;
+font-size:22px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="wrapper">
+
+<div class="thermometer" id="thermometer">
+
+<div class="tube">
+<div class="mercury" id="mercury">
+<div class="bubble"></div>
+<div class="bubble"></div>
+<div class="bubble"></div>
+</div>
+</div>
+
+<div class="bulb"></div>
+
+<div class="scale">
+<span>50°</span>
+<span>40°</span>
+<span>30°</span>
+<span>20°</span>
+<span>10°</span>
+<span>0°</span>
+</div>
+
+</div>
+
+<div class="display">
+<div id="value">20°C</div>
+<div class="status" id="status">😊 Normal</div>
+</div>
+
+</div>
+
+<script>
+let temp = 20;
+const mercury = document.getElementById("mercury");
+const value = document.getElementById("value");
+const status = document.getElementById("status");
+const thermometer = document.getElementById("thermometer");
+
+function update() {
+    value.innerHTML = temp + "°C";
+
+    mercury.style.height = (temp * 7) + "px";
+
+    let color = "#00c6ff";
+    let text = "❄️ Cold";
+
+    if(temp >= 15){ color = "#00d26a"; text = "😊 Normal"; }
+    if(temp >= 30){ color = "#ffb300"; text = "🔥 Warm"; }
+    if(temp >= 40){ color = "#ff3b30"; text = "🥵 Hot"; }
+    if(temp >= 48){ color = "#ff0000"; text = "⚠ Very Hot"; }
+
+    mercury.style.background = `linear-gradient(to top, white, ${color})`;
+    mercury.style.boxShadow = `0 0 35px ${color}`;
+
+    value.style.color = color;
+    value.style.textShadow = `0 0 20px ${color}`;
+    status.innerHTML = text;
+}
+
+update();
+
+
+let isDragging = false;
+
+thermometer.addEventListener("mousedown", () => isDragging = true);
+window.addEventListener("mouseup", () => isDragging = false);
+window.addEventListener("mousemove", (e) => {
+    if (!isDragging) return;
+
+    const rect = thermometer.getBoundingClientRect();
+    const mouseY = e.clientY - rect.top;
+
+    let newTemp = Math.round(50 - (mouseY / 380) * 50);
+    newTemp = Math.max(0, Math.min(50, newTemp));
+
+    temp = newTemp;
+    update();
+});
+
+// Touch Support
+thermometer.addEventListener("touchstart", (e) => { isDragging = true; e.preventDefault(); });
+window.addEventListener("touchend", () => isDragging = false);
+window.addEventListener("touchmove", (e) => {
+    if (!isDragging) return;
+    e.preventDefault();
+
+    const rect = thermometer.getBoundingClientRect();
+    const touchY = e.touches[0].clientY - rect.top;
+
+    let newTemp = Math.round(50 - (touchY / 380) * 50);
+    newTemp = Math.max(0, Math.min(50, newTemp));
+
+    temp = newTemp;
+    update();
+});
+</script>
+
+</body>
+</html>
