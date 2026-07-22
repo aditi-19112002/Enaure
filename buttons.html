@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Payment Button</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #ffffff;           /* White Background */
+            min-height: 100vh;
+            margin: 0;
+            padding: 60px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #111827;
+        }
+        
+        .payment-container {
+            text-align: center;
+            background: white;
+            padding: 50px 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+        }
+        
+        .label {
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            font-weight: 500;
+            color: #374151;
+        }
+        
+        button {
+            padding: 20px 52px;
+            font-size: 1.35rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 16px;
+            cursor: pointer;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            transition: all 0.4s ease;
+            min-width: 300px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Dynamic Payment Button */
+        #paymentBtn {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+        }
+        
+        #paymentBtn:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 25px 50px rgba(59, 130, 246, 0.35);
+        }
+        
+        .loading-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 5px;
+            background: #60a5fa;
+            width: 0%;
+            transition: width 0.4s ease;
+        }
+    </style>
+</head>
+<body>
+   
+      
+        <button id="paymentBtn">Pay ₹1,299</button>
+   
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    
+    <script>
+        const paymentBtn = document.getElementById('paymentBtn');
+        
+        paymentBtn.addEventListener('click', function() {
+            if (this.disabled) return;
+            
+            this.disabled = true;
+            this.style.background = 'linear-gradient(135deg, #64748b, #475569)';
+            this.innerHTML = `Processing <span style="display:inline-block; animation: spin 1s linear infinite; margin-left:10px;">⟳</span>`;
+            
+            let progress = 0;
+            const loadingBar = document.createElement('div');
+            loadingBar.className = 'loading-bar';
+            this.appendChild(loadingBar);
+            
+            const interval = setInterval(() => {
+                progress += Math.random() * 22;
+                if (progress > 100) progress = 100;
+                loadingBar.style.width = progress + '%';
+            }, 160);
+            
+            setTimeout(() => {
+                clearInterval(interval);
+                this.innerHTML = 'Verifying Payment...';
+                loadingBar.style.background = '#eab308';
+            }, 1400);
+            
+            setTimeout(() => {
+                this.innerHTML = '✅ Payment Successful!';
+                this.style.background = 'linear-gradient(135deg, #22c55e, #4ade80)';
+                loadingBar.style.background = '#4ade80';
+                
+                confetti({
+                    particleCount: 180,
+                    spread: 80,
+                    origin: { y: 0.6 }
+                });
+                
+                setTimeout(() => {
+                    this.innerHTML = 'Pay Again';
+                    this.disabled = false;
+                    this.style.background = 'linear-gradient(135deg, #3b82f6, #1d4ed8)';
+                    if (loadingBar.parentNode) loadingBar.remove();
+                }, 3000);
+            }, 3000);
+        });
+    </script>
+</body>
+</html>
